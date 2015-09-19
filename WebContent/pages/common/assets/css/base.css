@@ -1,0 +1,143 @@
+/* CSS Document */
+*{ margin:0; padding:0;}
+a{ text-decoration:none;}
+a{blr:expression(this.onFocus=this.blur());outline:none;}
+a:hover{ color:#cc0001;}
+fieldset,img{border:0;}
+ol,ul{ list-style-type:none;}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}
+em,i,stong{ font-style:normal; font-weight:normal;}
+body{ font-family:"微软雅黑"; font-size:12px; color:#666; background:#ffffff;}
+div{display: block;}
+.wrap {width: 1200px;margin: 0 auto;zoom: 1;}
+.banner-box{overflow:hidden;}
+.banner-box .bd{ width:100% !important;}
+.banner-box .bd li .m-width {width:100%;margin:0 auto;overflow:hidden;}
+.banner-box .bd li{width:100% !important;height:600px;}
+.banner-box .bd li a{display:block;background-size:auto;}
+.banner-btn{width:1000px;position:absolute;top:590px;left:50%;margin-left:-605px;}
+.banner-box .hd {position:absolute;top:40px;left:537px;}
+.banner-box .hd ul li{width:10px;height:10px;border-radius :50%;text-indent:-9999px;margin-right:45px;background:#ccc;float:left;cursor:pointer;}
+.banner-box .hd ul li.on{background:#FFCD18;}
+.header{width: 100%;z-index: 100;position: absolute;top:0;}
+.logo{margin: 14px 0 0 0;float: left;background-image: url('../images/logo_write.png');background-repeat: no-repeat;width: 86px;height:29px;}
+.userinfo{float: right;margin-top: 15px;}
+.userinfo li{float: left;}
+.userinfo li a{color: #000;}
+.clear{clear: both;}
+.kouhao{height: 391px;margin-top: 25px;}
+.index-lighter{float:left;background-image: url('../images/lighter.png');background-repeat: no-repeat;width: 293px;height:391px;}
+.index-model{float:left;margin-left:135px;background-image: url('../images/model.png');background-repeat: no-repeat;width: 293px;height:391px;}
+.index-rich{float:left;margin-left:135px;background-image: url('../images/rich.png');background-repeat: no-repeat;width: 293px;height:391px;}
+.line{width: 1200px;margin: 0 auto;zoom: 1;height:3px;background-image: url('../images/line.png');background-repeat:repeat-x;}
+.companyinfo{width: 650px;margin: 0 auto;zoom: 1;margin-top:56px;height: 25px;}
+.company{float:left;margin-right: 30px;}
+.tencent{margin-top: 11px;background-image: url('../images/company.png');background-repeat: no-repeat;width: 96px;height:25px;}
+.baidu{background-image: url('../images/company2.png');background-repeat: no-repeat;width: 74px;height:25px;}
+.huawei{background-image: url('../images/company3.png');background-repeat: no-repeat;width: 105px;height:25px;}
+.alibaba{background-image: url('../images/company4.png');background-repeat: no-repeat;width: 104px;height:25px;}
+.netease{background-image: url('../images/company5.png');background-repeat: no-repeat;width: 81px;height:25px;}
+.waitforyou{margin:52px auto;background-image: url('../images/wait_for_you.png');background-repeat: no-repeat;width:358px;height:22px}
+.danalist{width: 800px; height:180px;margin: 0 auto;zoom: 1;}
+.dana{float: left;width: 157px;height:178px;}
+.mayun{background-image: url('../images/mayun.png');background-repeat: no-repeat;}
+.join{cursor: pointer;width: 262px; height:48px;margin: 80px auto 20px auto;zoom: 1;background-image: url('../images/join.png');background-repeat: no-repeat;}
+.shareex{width: 115px; height:15px;margin: 0px auto 55px auto;zoom: 1;background-image: url('../images/share_ex.png');background-repeat: no-repeat;}
+.mask {position: absolute; top: 0px; filter: alpha(opacity=80); background-color: #000;  z-index: 1002; left: 0px;  opacity:0.8; -moz-opacity:0.8;display: none;} 
+.model{position: fixed; z-index: 1003; width:285px; height:540px; text-align:center;	background-color:#FFFFFF; display: none;}
+.label-account{background-image: url('../images/account.png');background-repeat: no-repeat;width: 13px;height: 15px;}
+.label-phone{background-image: url('../images/phone.png');background-repeat: no-repeat;width: 13px;height: 15px;}
+.label-captcha{background-image: url('../images/CAPTCHA.png');background-repeat: no-repeat;width: 15px;height: 15px;}
+.label-password{background-image: url('../images/password.png');background-repeat: no-repeat;width: 15px;height: 15px;}
+.model p{  position: relative;margin: 0;line-height: 40px;height: 40px;font-size: 13px;}
+.model label{display: block;position: absolute;  top: 12px;left: 25px;}
+.model input{border-top:0px ;border-left:0px ;border-right:0px ;width:220px;padding-left: 30px;height:25px;font-size: 13px;}
+.model .close{position: absolute;background-image: url('../images/delete.png');background-repeat: no-repeat;width: 29px;height: 29px;  right: -40px;top:-30px;cursor: pointer;}
+.dialogtitle{position: relative;}
+.loginbtn{position: absolute;bottom: 10px;left: 40px;cursor: pointer;}
+.registerbtn{position: absolute;bottom: 10px;right: 40px;cursor: pointer;}
+.button{margin:30px auto 66px auto;background-image: url('../images/button3.png');background-repeat: no-repeat;width: 224px;height: 25px;display: block;color: #fff;font-size: 14px;}
+.otherlogin{width:267px;height:15px;margin:0 auto;background-image: url('../images/otherlogin.png');background-repeat: no-repeat;}
+.otherlist{width:210px;height: 40px;margin: 26px auto }
+.logintype{float: left;margin-right: 52px}
+.qq{width:29px;height:31px;background-image: url('../images/qq.png');background-repeat: no-repeat;}
+.wechat{width:40px;height:32px;background-image: url('../images/wechat.png');background-repeat: no-repeat;}
+.weibo{width:35px;height:28px;margin-right:0px;background-image: url('../images/weibo.png');background-repeat: no-repeat;}
+.avatar{background-image: url('../images/cover3.png');background-repeat: no-repeat; width: 100px;height: 100px;border-radius:50px;margin: 36px auto;}
+.fill{width: 700px;margin: 0 auto;}
+.fill p{height: 44px;line-height: 44px;margin-bottom: 10px;background-color: #fff;padding-left: 28px;padding-right: 40px;}
+.fill .title{padding-left: 28px;height: 44px;line-height: 44px;}
+.fill input,select{float: right;height: 44px;border:0px;text-align:right}
+.fill textarea{  width: 100%;height: 120px;border: 0px;}
+.button2{margin:30px auto 50px auto;background-image: url('../images/button.png');background-repeat: no-repeat;width: 261px;height: 48px;display: block;color: #fff;  font-size: 18px;text-align: center;line-height: 44px;}
+.activitycontent{margin-top: 44px;background-color:#ededeb;text-align: center; margin-bottom: 30px;}
+.activitycontent .left{width: 285px;float: left;}
+.activitycontent .right{float: right;width:915px;}
+.activitycontent .right li{width: 285px;height: 180px;float: left;margin-left: 20px;position: relative;margin-bottom: 20px;}
+.baseinfo {background: #fff;padding-top: 20px;padding-bottom: 10px;}
+.baseinfo .name{font-size: 16px;}
+.baseinfo p{font-size: 13px; line-height: 30px;height: 30px;}
+.work {text-align: left;margin-top:20px;background: #fff;padding: 20px 0px 10px 10px;}
+.work p{font-size: 13px; line-height: 30px;height: 30px;}
+.activitycontent .right .title{margin-left:10px;color:#fff;position: absolute;bottom: 28px;font-size: 14px;}
+.activitycontent .right .info{margin-left:10px;color:#fff;position: absolute;bottom: 10px;}
+.activitycontent .right .info .time{ float: right;color:#F0CC14;  margin-left: 15px;}
+.activitycontent .right .approve{width:104px;height:21px;background-image: url('../images/approve.png');background-repeat: no-repeat;position: absolute;bottom: 80px;left:90px}
+.activitycontent .right .add-activity-btn{background: #fff;width: 285px;height: 180px;cursor: pointer;}
+.add-activity-btn .add{position: absolute;left:125px;top:70px;background-image: url('../images/+.png');background-repeat: no-repeat; width: 34px;height: 34px;}
+.add-activity-btn .addtext{position: absolute;left:110px;top:110px;font-size: 16px;}
+.model2{position: absolute; z-index: 1003; width:333px; height:673px; text-align:center;background-image: url('../images/iphone.png');background-repeat: no-repeat; display: none;}
+.model2 .dialogcontent{width: 284px;height: 491px;margin: 90px auto 20px auto;background: #fff;}
+.model2 p{ position: relative;margin: 0;line-height: 44px;height: 44px;font-size: 13px;}
+.model2 input{border-top:0px ;border-left:0px ;border-right:0px ;width:253px;height:25px;font-size: 13px;}
+.model2 textarea{border:0px ;width:253px;height:100px;font-size: 13px;resize: none;}
+.send-activity{background-image: url('../images/circle.png');background-repeat: no-repeat; width: 52px;height: 52px;  margin-top: 152px;margin-left: 115px;padding-top: 16px;font-size: 14px;cursor: pointer;}
+.model2 .close2{position: absolute;background-image: url('../images/delete.png');background-repeat: no-repeat;width: 29px;height: 29px;  right: -40px;top:15px;cursor: pointer;}
+.talkcontent { margin-top: 44px;position: relative;top: 44px;}
+.talkcontent .left{width: 285px;float: left;margin-right: 25px}
+.talkcontent .activity .title{margin-left:10px;color:#fff;position: absolute;bottom: 28px;font-size: 14px;}
+.talkcontent .activity {width: 285px;height: 180px;position: relative;}
+.talkcontent .activity .info{margin-left:10px;color:#fff;position: absolute;bottom: 10px;}
+.talkcontent .activity .info .time{ float: right;color:#F0CC14;  margin-left: 15px;}
+.talkcontent .left .member{ margin-top: 20px;width: 285px;}
+.talkcontent .left .member div{height:45px;width: 285px; padding-left:10px;line-height: 45px;}
+.talkcontent .left li{height: 45px;line-height: 45px;}
+.talkcontent .right{float: right;width:890px;}
+.talkcontent .right .content{height: 450px; width: 890px; overflow-y:auto; overflow-x:hidden;border-bottom: 1px solid;background: #fff}
+.talkcontent .right textarea{width: 880px;height: 150px;border: 0px;padding: 5px;resize: none;}
+.talkcontent .right .send{margin-top:20px;background-image: url('../images/send.png');background-repeat: no-repeat;width: 100px;height: 28px;display: block; text-align: center;padding-top: 5px;float: right;}
+.message_content{width:100%;margin-top:10px;clear:both;float:left;}
+.face{float:left;width:42px;height: 42px; -webkit-border-radius:50px;-moz-border-radius:50px;border-radius:50px; }
+.face img{width:100%;max-width:42px;clear:both;}
+.message{float:left;background-color:#ededea;padding:10px;width:75%;margin-left:20px;margin-right:5px;
+        -webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;position:relative;
+}
+.messageleft{float:left;background-color:#fecb18;padding:10px;width:75%;margin-left:5px;margin-right:20px;
+        -webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;position:relative;
+        }
+.message:before{
+    position:absolute;
+    content:"\00a0";
+    width:0px;
+    height:0px;
+    border-width:6px 10px 6px 0;
+    border-style:solid;
+    border-color:transparent #ededea transparent transparent;
+    top:15px;
+    left:-10px;
+}
+.messageleft:before{
+    position:absolute;
+    content:"\00a0";
+    display:inline-block;
+    width:0px;
+    height:0px;
+    border-width:6px 0px 6px 10px;
+    border-style:solid;
+    border-color:transparent transparent transparent #fecb18;
+    right:-10px;
+    top:15px;                  
+}
+.fr{
+	float: right;
+}
