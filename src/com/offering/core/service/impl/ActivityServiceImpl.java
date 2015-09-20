@@ -277,12 +277,13 @@ public class ActivityServiceImpl implements ActivityService{
 	public void updateActivity(Activity act,ChartGroup group)
 	{
 		StringBuilder sql = new StringBuilder();
-		sql.append("UPDATE ACTIVITY_INFO SET title=?,startTime=?,address=?,remark=? WHERE id=? ");
+		sql.append("UPDATE ACTIVITY_INFO SET title=?,startTime=?,address=?,remark=?,url=? WHERE id=? ");
 		ParamInfo paramInfo = new ParamInfo();
 		paramInfo.setTypeAndData(Types.VARCHAR, act.getTitle());
 		paramInfo.setTypeAndData(Types.BIGINT, act.getStartTime());
 		paramInfo.setTypeAndData(Types.VARCHAR, act.getAddress());
 		paramInfo.setTypeAndData(Types.VARCHAR, act.getRemark());
+		paramInfo.setTypeAndData(Types.VARCHAR, act.getUrl());
 		paramInfo.setTypeAndData(Types.BIGINT, act.getId());
 		activityDao.updateRecord(sql.toString(), paramInfo);
 		

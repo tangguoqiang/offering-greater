@@ -25,7 +25,7 @@
 		<img src="images/backgroud3.png" width="100%"/>
 	</div>
 	<div class="content" >
-		<div class="avatar"></div>
+		<div class="avatar"><input type="file" id="fileToUpload" name="fileToUpload"></div>
 		<div class="fill">
 			<div class="msg" id="msg"></div>
 			<p>
@@ -125,7 +125,12 @@ $(document).ready(function(){
 			return false;
 		}
 		var tag = field+','+university;
-	
+		if($("#fileToUpload").val() == ''){
+			msg = "请选择上传头像";
+			$("#msg").html(msg);
+			$('#msg').show();
+			return false;
+		 }
 		$.ajax({
 			type:'post',
 			url:"<%=baseUrl%>"+'/becomeGreater',
@@ -142,11 +147,26 @@ $(document).ready(function(){
 			success:function(data){
 				isClick = false;
 				if(data.success){
-					$("#msg").html('提交成功！');
-					$('#msg').show();
-					setTimeout(function(){
-						window.location.href = '<%=baseUrl%>'+'/activity';
-					},2000 );
+					$.ajaxFileUpload({
+				 		url:"<%=baseUrl%>/greater/uploadImage",
+				 		secureuri:false,
+				 		type:'GET',
+				 		fileElementId:'fileToUpload',
+				 		dataType: 'json',
+				 		data:{
+				 			id:'<%=userId%>',
+				 			uploadType: 0
+				 		},
+				 		success: function (result, status){
+				 			$("#msg").html('提交成功！');
+							$('#msg').show();
+							setTimeout(function(){
+								window.location.href = '<%=baseUrl%>'+'/activity';
+							},1500 );
+				 		},
+				 		error: function (data, status, e){
+				 		}
+				 	});
 				}else{
 					$("#msg").html(data.msg);
 					$('#msg').show();
@@ -156,9 +176,13 @@ $(document).ready(function(){
 				isClick = false;
 			}
 		});
+		 
+
 	});
 
 });
+
+
 </script>
 </body>
 </html>

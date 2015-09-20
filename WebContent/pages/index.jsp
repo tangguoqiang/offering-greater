@@ -13,7 +13,7 @@
 			<a class="logo" href="<%=baseUrl%>"></a>
 			<div class="userinfo">
 				<ul id="nologin" <%if (userName != null ){%>style="display:none;"<%}%>>
-					<li style="margin-right:5px">
+					<li style="margin-right:25px">
 				    	<a href="javascript:void(0);" onclick="downloadApp();">APP下载</a>
 				    </li>
 					<li style="margin-right:50px"><a href="javascript:void(0);" onClick="showDialog(1);">成为大拿</a></li>

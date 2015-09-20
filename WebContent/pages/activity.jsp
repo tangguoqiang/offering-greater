@@ -56,7 +56,17 @@
 		<div class="close2"></div>
 		<div class="dialogcontent">
 			<div class="dialogtitle">
-				<img src="images/cover3.png" width="100%"/>
+				<img src="<%=serverUrl%>/download/userImages/1.jpg" width="100%" id="activitybg"/>
+				<div class="down"></div>
+			</div>
+			<div class="activity-tpl-list">
+				<ul>
+					<li class="item first" rel="/download/userImages/1.jpg"><img src="<%=serverUrl%>/download/userImages/1.jpg" width="135" height="75"/></li>
+					<li class="item" rel="/download/userImages/2.jpg"><img src="<%=serverUrl%>/download/userImages/2.jpg" width="135" height="75"/></li>
+					<li class="item first" rel="/download/userImages/4.jpg"><img src="<%=serverUrl%>/download/userImages/4.jpg" width="135" height="75"/></li>
+					<li class="item" rel="/download/userImages/5.jpg"><img src="<%=serverUrl%>/download/userImages/5.jpg" width="135" height="75"/></li>
+				</ul>
+				<div class="up"></div>
 			</div>
 			<div class="">
 				<p>
@@ -72,6 +82,7 @@
 					<textarea id="remark" placeholder="主题说明"></textarea>
 				</p>
 			</div>
+			<input id="url" type="hide" value="/download/userImages/1.jpg">
 			<div id="releaseBtn" class="send-activity">发布</div>
 		</div>
 	</div>
@@ -131,6 +142,27 @@ $(document).ready(function(){
     	   $("#header").removeClass("headerfix");
        }
     });
+	 
+	$('.down').live('click',function(){
+		$('.activity-tpl-list').show();
+		$('.activity-tpl-list').stop().animate({top:"185px",speed: 800});
+	});
+	$('.up').live('click',function(){
+		$('.activity-tpl-list').stop().animate({top:"0px",speed: 800,});
+		setTimeout(function(){
+			$('.activity-tpl-list').hide();
+		},600);
+	});
+	
+	$('.item').live('click',function(){
+		var url = $(this).attr('rel');
+		$('#url').val(url);
+		$("#activitybg").attr('src', "<%=serverUrl%>"+url);
+		$('.activity-tpl-list').stop().animate({top:"0px",speed: 800});
+		setTimeout(function(){
+			$('.activity-tpl-list').hide();
+		},600);
+	});
 });
 
 function loadGreaterInfo(){
@@ -203,6 +235,7 @@ function realeaseActivity(){
 		url:"<%=baseUrl%>"+'/activity/releaseActivity',
 		data:{
 			id:activityId,
+			url:$("#url").val(),
 			title:$("#title").val(),
 			startTime:$("#time").val(),
 			address:$("#address").val(),
@@ -240,6 +273,7 @@ function openTalk(el){
 			success:function(data){
 				setTimeout(function(){
 				activityId=groupId;
+				$("#activitybg").attr('src', '<%=serverUrl%>'+data.url);
 				$("#time").val(data.startTime);
 				$("#address").val(data.address);
 				$("#remark").val(data.remark);

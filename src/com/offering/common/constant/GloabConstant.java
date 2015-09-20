@@ -89,6 +89,6 @@ public class GloabConstant {
 	/**
 	 * 文件系统根目录 /home/offering/images/ and C:\\gtang\\picture\\
 	 */
-	public final static String ROOT_DIR = "/home/offering/images/";
+	public final static String ROOT_DIR = "d:\\";
 	
 }

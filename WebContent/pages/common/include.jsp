@@ -1,6 +1,7 @@
 <%@page import="com.offering.bean.User"%>
 <%
 	String baseUrl = request.getContextPath();
+	String serverUrl ="http://121.201.24.60:8080/offering";
 	String userName = null,auth = null,userId = null,userType = null,rcToken = null; 
 	if(request.getSession().getAttribute("user") != null){
 		User user = (User)request.getSession().getAttribute("user");
@@ -18,6 +19,7 @@
 <script src="<%=baseUrl%>/js/jquery-1.7.2.min.js" type="text/javascript"></script>
 <script src="<%=baseUrl%>/js/jquery.slides.min.js" type="text/javascript"></script>
 <script src="<%=baseUrl%>/js/tinybox.js" type="text/javascript"></script>
+<script type="text/javascript" src="<%=baseUrl%>/js/ajaxfileupload.js"></script>
 <script type="text/javascript" src="<%=baseUrl%>/js/jquery-ui-1.8.17.custom.min.js"></script>
 <script type="text/javascript" src="<%=baseUrl%>/js/jquery-ui-timepicker-addon.js"></script>
 <script type="text/javascript" src="<%=baseUrl%>/js/jquery-ui-timepicker-zh-CN.js"></script>

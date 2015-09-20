@@ -116,7 +116,7 @@ public class ActivityController {
 		Map<String, Object> m = new HashMap<String, Object>();
 		//TODO 多表关联查询结构有待优化
 		Activity act = activityService.getActivityById(id);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-DD HH:mm");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		if(act != null)
 		{
 			m.put("id", act.getId());
