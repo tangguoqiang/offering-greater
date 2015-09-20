@@ -37,11 +37,11 @@
 	</div>
 	<div class="banner">
 		<div id="slides">
-			<div class="slides_container">
-				<img src="<%=baseUrl%>/images/1-offering-bg1.png" />
-				<img src="<%=baseUrl%>/images/1-offering-bg2.png"/>
-				<img src="<%=baseUrl%>/images/1-offering-bg3.png"/>
-			</div>
+			<ul class="bxslider">
+			  <li><img src="<%=baseUrl%>/images/1-offering-bg1.png" /></li>
+			  <li><img src="<%=baseUrl%>/images/1-offering-bg2.png"/></li>
+			  <li><img src="<%=baseUrl%>/images/1-offering-bg3.png"/></li>
+			</ul>
 		</div>
 	</div>
 	<div class="content">
@@ -113,6 +113,7 @@
 </script>
 <script type="text/javascript">
 $(document).ready(function(){
+	/**
 	$('#slides').slides({
 		preload: true,
 		preloadImage: '<%=baseUrl%>/images/loading.gif',
@@ -124,6 +125,10 @@ $(document).ready(function(){
 		autoHeight: true,
 		play: 5000
 		
+	});
+	**/
+	 $('.bxslider').bxSlider({
+		  auto: true
 	});
 	 $(window).scroll(function () {
        if($(window).scrollTop() > 0){
