@@ -127,6 +127,7 @@
 			</div>
 			<div class="">
 				<p>
+				    <input id="id" style="visibility: hidden;">
 					<input id="title" name="title" type="text" class="input" autocomplete="off" placeholder="分享主题"></input>
 				</p>
 				<p>
@@ -226,7 +227,8 @@ function loadActivities(){
 			for(var i = 0,len = recs.length;i<len;i++)
 			{
 				rec=recs[i];
-				$("#activities").append("<li><img src=\"\" width=\"285\" height=\"180\"/>"
+				$("#activities").append("<li><img groupId=\""+rec.id+"\" status=\"" + rec.status
+						+"\" src=\"\" width=\"285\" height=\"180\" onclick=\"openTalk(this)\"/>"
 						+"<div class=\"approve\"></div>"
 						+"<div class=\"title\">"+rec.title +"</div>"
 						+"<div class=\"info\"><span class=\"address\">" + rec.address +"</span>"
@@ -287,6 +289,18 @@ function dialog(type){
 function showDialog(type){
 	showMask();
 	dialog(type);
+}
+
+function openTalk(el){
+	var status = $(el).attr("status");
+	var groupId=$(el).attr("groupId");
+	alert(status);
+	if(status == 3)
+	{
+		$('.add-activity-btn').trigger("click");
+	}
+	else
+		window.open(baseUrl+"/talk?groupId="+groupId,"talk"+groupId);
 }
 </script>
 </body>

@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.offering.bean.Activity;
 import com.offering.bean.ChartGroup;
-import com.offering.bean.PageInfo;
 import com.offering.common.constant.GloabConstant;
 import com.offering.common.utils.Utils;
 import com.offering.core.service.ActivityService;

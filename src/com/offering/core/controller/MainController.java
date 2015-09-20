@@ -285,8 +285,9 @@ public class MainController {
 	 * @param session
 	 * @return
 	 */
-	@RequestMapping(value = "/talk",  method ={RequestMethod.POST,RequestMethod.GET})
-	public String talk(HttpSession session) {
+	@RequestMapping(value = "/talk",  method ={RequestMethod.GET})
+	public String talk(String groupId,HttpSession session,Model model) {
+		model.addAttribute("groupId", groupId);
 		return "pages/talk";
 	}
 }

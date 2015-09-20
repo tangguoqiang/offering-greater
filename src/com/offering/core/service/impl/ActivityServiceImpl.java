@@ -49,7 +49,7 @@ public class ActivityServiceImpl implements ActivityService{
 	public List<Activity> listActivities(String createrId)
 	{
 		StringBuilder sql = new StringBuilder();
-		sql.append("select id,title,startTime,endTime,type,address,remark ")
+		sql.append("select id,title,startTime,endTime,type,address,remark, ")
 		   .append("status,url FROM ACTIVITY_INFO WHERE createrId=? ");
 		ParamInfo paramInfo = new ParamInfo();
 		paramInfo.setTypeAndData(Types.BIGINT, createrId);
