@@ -104,11 +104,7 @@
 			</p>
 		</div>
 		<div class="otherlogin"></div>
-		<div class="otherlist">
-			<div class="logintype qq"></div>
-			<div class="logintype wechat"></div>
-			<div class="logintype weibo"></div>
-		</div>
+		<div class="otherlist"></div>
 	</div>
 </div>
 </div>

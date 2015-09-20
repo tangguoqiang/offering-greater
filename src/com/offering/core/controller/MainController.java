@@ -86,22 +86,23 @@ public class MainController {
 	@RequestMapping(value = "/becomeGreater", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> addGreater(
-			@RequestParam("username") String username,
+			@RequestParam("userid") String userid,
 			@RequestParam("nickname")String nickname,
 			@RequestParam("company")String company,
-			@RequestParam("specialty")String specialty,
+			@RequestParam("post")String post,
 			@RequestParam("experience")String experience,
 			@RequestParam("tags")String tags,
 			@RequestParam("job")String job,
 			HttpServletRequest req){
 		Map<String, Object> m = new HashMap<String, Object>();
 		Greater greater = new Greater();
-		User user = userService.getUserInfoByNickName(username);
+		User user = userService.getUserInfoById(userid);
+		user.setNickname(nickname);
 		user.setType(GloabConstant.USER_TYPE_GREATER);
 		greater.setCompany(company);
 		greater.setJob(job);
+		greater.setPost(post);
 		greater.setExperience(experience);
-		greater.setSpecialty(specialty);
 		greater.setTags(tags);
 		userService.insertGreater(user, greater);
 		m.put("success", true);
@@ -276,3 +277,4 @@ public class MainController {
 		return "pages/talk";
 	}
 }
+

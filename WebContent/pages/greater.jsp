@@ -12,7 +12,7 @@
 <body style="background-color:#ededeb">
 	<div class="header" id="header">
 		<div class="wrap">
-			<div class="logo"></div>
+			<a class="logo" href="<%=baseUrl%>"></a>
 			<div class="userinfo">
 				<ul>
 					<li>欢迎回来，<span id="showusername"><%if (userName != null ){%><%=userName%><%}%></span> <a href="javascript:void(0);" onClick="logout();">退出</a></li>
@@ -27,38 +27,26 @@
 	<div class="content" >
 		<div class="avatar"></div>
 		<div class="fill">
+			<div class="msg" id="msg"></div>
 			<p>
 				<label>姓名</label>
-				<input id="nickname" value="老罗">
-			</p>
-			<p>
-				<label>性别</label>
-				<input type="radio" name="sex" value="1" checked="checked" />男 
-				<input type="radio" name="sex" value="女" />女 
+				<input id="nickname" value="" placeholder="昵称">
 			</p>
 			<p>
 				<label>公司</label>
-				<input id="company" value="锤子科技">
+				<input id="company" value=""  placeholder="你的公司">
 			</p>
 			<p>
 				<label>职位</label>
-				<input id="job" value="CEO">
+				<input id="post" value="" placeholder="你的职位">
 			</p>
 			<p>
 				<label>领域</label>
-				<select id="specialty">
-					<option value="互联网">互联网</option>
-				</select>
+				<input id="field" value="" placeholder="你的领域">
 			</p>
 			<p>
 				<label>大学</label>
-				<select>
-					<option>延边二中</option>
-				</select>
-			</p>
-			<p>
-				<label>是否成为一对一嘉宾</label>
-				<input>
+				<input id="university" value="" placeholder="你的大学">
 			</p>
 			<div class="title">工作经历</div>
 			<p style="height:120px">
@@ -66,7 +54,7 @@
 			</p>
 			<div class="title">心得</div>
 			<p  style="height:120px">
-				<textarea  id="tags"></textarea>
+				<textarea  id="job"></textarea>
 			</p>
 			<a class="button2" id="create">提交申请</a>
 		</div>
@@ -84,33 +72,93 @@ $(document).ready(function(){
        }
     });
 	$('#create').bind('click',function(){
+		if(isClick == true){return false;}
+		isClick = true;
+		var nickname = $("#nickname").val();
+		var company = $("#company").val();
+		var post = $("#post").val();
+		var field =  $("#field").val();
+		var university =  $("#university").val();
+		var experience =  $("#experience").val();
+		var job = $("#job").val();
+		var msg = '';
+		if(nickname == ''){
+			msg = "姓名不能为空";
+			$("#msg").html(msg);
+			$('#msg').show();
+			return false;
+		}
+		if(company == ''){
+			msg = "公司不能为空";
+			$("#msg").html(msg);
+			$('#msg').show();
+			return false;
+		}
+		if(post == ''){
+			msg = "职位不能为空";
+			$("#msg").html(msg);
+			$('#msg').show();
+			return false;
+		}
+		if(field == ''){
+			msg = "领域不能为空";
+			$("#msg").html(msg);
+			$('#msg').show();
+			return false;
+		}
+		if(university == ''){
+			msg = "大学不能为空";
+			$("#msg").html(msg);
+			$('#msg').show();
+			return false;
+		}
+		if(experience == ''){
+			msg = "工作经历不能为空";
+			$("#msg").html(msg);
+			$('#msg').show();
+			return false;
+		}
+		if(job == ''){
+			msg = "心得不能为空";
+			$("#msg").html(msg);
+			$('#msg').show();
+			return false;
+		}
+		var tag = field+','+university;
+	
 		$.ajax({
 			type:'post',
 			url:"<%=baseUrl%>"+'/becomeGreater',
 			data:{
-				username:'<%=userName%>',
-				nickname:$("#nickname").val(),
-				company:$("#company").val(),
-				specialty:$("#specialty").val(),
-				experience:$("#experience").val(),
-				tags:$("#tags").val(),
-				job:$("#job").val(),
+				userid:'<%=userId%>',
+				nickname:nickname,
+				company:company,
+				post:post,
+				experience:experience,
+				tags:tag,
+				job:job,
 			},
 			dataType:'json',
 			success:function(data){
+				isClick = false;
 				if(data.success){
-					alert('提交成功！');
+					$("#msg").html('提交成功！');
+					$('#msg').show();
+					setTimeout(function(){
+						window.location.href = '<%=baseUrl%>'+'/activity';
+					},2000 );
 				}else{
-					alert(data.msg);
+					$("#msg").html(data.msg);
+					$('#msg').show();
 				}
 			},
 			error:function(textStatus,errorThrown){
+				isClick = false;
 			}
 		});
 	});
 
 });
-
 </script>
 </body>
 </html>

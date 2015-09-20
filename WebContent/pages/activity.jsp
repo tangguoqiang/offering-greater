@@ -11,12 +11,11 @@
 }%>
 </head>
 <body style="background: #ededeb;">
-	<div class="header" style="position:static;background: #ffffff;">
+	<div class="header activityheaderbg" id="header">
 		<div class="wrap">
-			<div class="logo"></div>
+			<a class="logo" href="<%=baseUrl%>"></a>
 			<div class="userinfo">
 				<ul>
-					<li style="margin-right:50px"><a href="<%=baseUrl%>/activity">发布活动</a></li>
 					<li>欢迎回来，<span id="showusername"><%if (userName != null ){%><%=userName%><%}%></span> <a href="javascript:void(0);" onClick="logout();">退出</a></li>
 				</ul>
 			</div>
@@ -51,12 +50,9 @@
 			</div>
 		</div>
 	</div>
-	<div class="footer">
-		<img src="images/down.png" width="100%"></div>
-	</div>
-	<div class="mask" id="mask"></div>
-	
-	<div class="model2" id="dialog2">
+	<div class="footer"></div>
+<script  type="text/x-jquery-tmpl" id="dialog">
+	<div class="model2">
 		<div class="close2"></div>
 		<div class="dialogcontent">
 			<div class="dialogtitle">
@@ -79,6 +75,7 @@
 			<div id="releaseBtn" class="send-activity">发布</div>
 		</div>
 	</div>
+</script>
 <script type="text/javascript">
 Date.prototype.format = function(fmt)   
 { //author: meizz   
@@ -101,43 +98,39 @@ Date.prototype.format = function(fmt)
 
 var activityId="";
 $(document).ready(function(){
-	$('.close').bind('click',function(){
-		$("#mask").hide();
-		$('#dialog').hide();
-	});
-
-	$('.loginbtn').bind('click',function(){
-		$('.logindiv').show();
-		$('.registerdiv').hide();
-	});
-
-	$('.registerbtn').bind('click',function(){
-		$('.logindiv').hide();
-		$('.registerdiv').show();
-	});
-
 	$('.add-activity-btn').bind('click',function(){
-		showMask();
-		var top = ($(window).height() - $("#dialog2").height())/2; 
-		var left = ($(window).width() - $("#dialog2").width())/2; 
-		var scrollTop = $(document).scrollTop(); 
-		var scrollLeft = $(document).scrollLeft(); 
-		$('#dialog2').css( { position : 'absolute', 'top' : top + scrollTop, left : left + scrollLeft } ).show();
+		var html = $('#dialog').html();
+		TINY.box.show(html,0,0,0,1);
 		activityId="";
 		$("#title").val("");
 		$("#time").val("");
 		$("#address").val("");
 		$("#remark").val("");
+		setTimeout(function(){
+			 $("#time").datetimepicker({
+	            showSecond: true,
+	            timeFormat: 'hh:mm:ss',
+	            stepHour: 1,
+	            stepMinute: 1,
+	            stepSecond: 1
+	        });
+		},1000);
 	});
-	$('.close2').bind('click',function(){
-		$("#mask").hide();
-		$('#dialog2').hide();
+	$('.close2').live('click',function(){
+		TINY.box.hide();
 	});
 	//发布活动
-	$('#releaseBtn').bind('click',realeaseActivity);
+	$('#releaseBtn').live('click',realeaseActivity);
 	loadGreaterInfo();
 	//加载活动数据
 	loadActivities();
+	 $(window).scroll(function () {
+       if($(window).scrollTop() > 0){
+    	   $("#header").addClass("headerfix");
+       }else{
+    	   $("#header").removeClass("headerfix");
+       }
+    });
 });
 
 function loadGreaterInfo(){
@@ -220,8 +213,7 @@ function realeaseActivity(){
 		success:function(data){
 			if(data.success){
 				loadActivities();
-				$("#mask").hide();
-				$('#dialog2').hide();
+				TINY.box.hide();
 			}else{
 				alert(data.msg);
 			}
@@ -230,31 +222,7 @@ function realeaseActivity(){
 		}
 	});
 }
-//兼容火狐、IE8
-function showMask(){
-	$("#mask").css("height",$(document).height());
-	$("#mask").css("width",$(document).width());
-	$("#mask").show();
-}
-//让指定的DIV始终显示在屏幕正中间
-function dialog(type){ 
-	var top = ($(window).height() - $("#dialog").height())/2; 
-	var left = ($(window).width() - $("#dialog").width())/2; 
-	var scrollTop = $(document).scrollTop(); 
-	var scrollLeft = $(document).scrollLeft(); 
-	if(type == 1){
-		$('.logindiv').show();
-		$('.registerdiv').hide();
-	}else{
-		$('.registerdiv').show();
-		$('.logindiv').hide();
-	}
-	$('#dialog').css( { position : 'fixed', 'top' : top + scrollTop, left : left + scrollLeft } ).show();
-}
-function showDialog(type){
-	showMask();
-	dialog(type);
-}
+
 
 function openTalk(el){
 	var status = $(el).attr("status");
@@ -270,11 +238,13 @@ function openTalk(el){
 			},
 			dataType:'json',
 			success:function(data){
+				setTimeout(function(){
 				activityId=groupId;
 				$("#time").val(data.startTime);
 				$("#address").val(data.address);
 				$("#remark").val(data.remark);
 				$("#title").val(data.title);
+				},1000);
 			},
 			error:function(textStatus,errorThrown){
 			}

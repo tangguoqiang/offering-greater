@@ -13,9 +13,14 @@
 	
 %>
 <link href="<%=baseUrl%>/css/base.css" rel="stylesheet" type="text/css"/>
+<link type="text/css" href="<%=baseUrl%>/css/jquery-ui-1.8.17.custom.css" rel="stylesheet" />
+<link type="text/css" href="<%=baseUrl%>/css/jquery-ui-timepicker-addon.css" rel="stylesheet" />
 <script src="<%=baseUrl%>/js/jquery-1.7.2.min.js" type="text/javascript"></script>
 <script src="<%=baseUrl%>/js/jquery.slides.min.js" type="text/javascript"></script>
 <script src="<%=baseUrl%>/js/tinybox.js" type="text/javascript"></script>
+<script type="text/javascript" src="<%=baseUrl%>/js/jquery-ui-1.8.17.custom.min.js"></script>
+<script type="text/javascript" src="<%=baseUrl%>/js/jquery-ui-timepicker-addon.js"></script>
+<script type="text/javascript" src="<%=baseUrl%>/js/jquery-ui-timepicker-zh-CN.js"></script>
 <script type="text/javascript">
 	var baseUrl = '<%=baseUrl%>';
 	var userId = '<%=userId%>';

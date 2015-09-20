@@ -8,13 +8,12 @@
 <script src="<%=baseUrl%>/js/RongIMClient-0.9.13.min.js" type="text/javascript"></script>
 </head>
 <body style="background-color:#ededeb;">
-<div class="header" style="background-color:#ffffff;">
+<div class="header activityheaderbg" id="header">
 	<div class="wrap">
-		<div class="logo"></div>
+		<a class="logo"></a>
 		<div class="userinfo">
 			<ul>
-				<li style="margin-right:50px"><a href="<%=baseUrl%>/activity">发布活动</a></li>
-				<li>欢迎回来</li>
+				<li>欢迎回来，<span id="showusername"><%if (userName != null ){%><%=userName%><%}%></span> <a href="javascript:void(0);" onClick="logout();">退出</a></li>
 			</ul>
 		</div>
 		<div class="clear"></div>
@@ -53,9 +52,7 @@
 		</div>
 	</div>
 </div>
-<div class="footer" style="margin-top: 60px;float:left;">
-	<img src="images/down.png" width="100%"></div>
-</div>
+<div class="footer" style="margin-top: 60px;float:left;"></div>
 	
 <script type="text/javascript">
 var isconnect = false;
