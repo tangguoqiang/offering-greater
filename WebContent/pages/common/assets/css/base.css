@@ -16,7 +16,7 @@ input, button, select, textarea {outline: 0 none;}
 textarea { resize: none;}
 div{display: block;}
 .wrap {width: 1200px;margin: 0 auto;zoom: 1;}
-.banner{height:915px;position:relative;}
+.banner{position:relative;}
 #slides{ position: relative; height: 915px;}
 .slidesjs-pagination {
     bottom: 0px;

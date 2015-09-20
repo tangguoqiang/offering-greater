@@ -195,6 +195,18 @@ public class MainController {
 			m.put("success", true);
 		}
 		
+		User returnUser = userService.getUserInfoByPhone(phone,null);
+		if(returnUser != null){
+			m.put("success", true);
+			if(Utils.isEmpty(user.getRc_token()))
+			{
+				String rc_token = RCUtils.getToken(user.getId(), user.getNickname(), "");
+				userService.updateRCToken(user.getId(), rc_token);
+				user.setRc_token(rc_token);
+			}
+			req.getSession().setAttribute("user", user);
+		}
+		
 		return m;
 	}
 	
