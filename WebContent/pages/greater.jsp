@@ -10,7 +10,7 @@
 	response.sendRedirect(baseUrl);
 }%>
 <body style="background-color:#ededeb">
-	<div class="header">
+	<div class="header" id="header">
 		<div class="wrap">
 			<div class="logo"></div>
 			<div class="userinfo">
@@ -72,60 +72,17 @@
 		</div>
 	</div>
 	<div class="footer">
-		<img src="images/down.png" width="100%"></div>
-	</div>
-	<div class="mask" id="mask"></div>
-	<div class="model" id="dialog">
-		<div class="close"></div>
-		<div class="dialogcontent">
-			<div class="dialogtitle">
-				<img src="images/backgroud.png" width="100%"/>
-				<div class="loginbtn">登录</div>
-				<div class="registerbtn">注册</div>
-			</div>
-			<div class="">
-				<div class="logindiv">
-					<p style="margin-top:40px">
-						<label for="account" class="label-account"></label>
-						<input name="account" type="text" class="input" autocomplete="off" placeholder="邮箱或手机号"></input>
-					</p>
-					<p>
-						<label for="password" class="label-password"></label>
-						<input name="password" type="password" class="input" autocomplete="off" placeholder="密码"></input>
-					</p>
-					<p  style="line-height: 25px;">
-						<a href="javascirpt:void(0);" class="button">登录</a>
-					</p>
-				</div>
-				<div class="registerdiv">
-					<p style="margin-top:40px">
-						<label for="username" class="label-phone"></label>
-						<input name="username" type="text" class="input" autocomplete="off" placeholder="手机号"></input>
-					</p>
-					<p>
-						<label for="captcha" class="label-captcha"></label>
-						<input name="captcha" type="text" class="input" autocomplete="off" placeholder="验证码"></input>
-					</p>
-					<p>
-						<label for="password" class="label-password"></label>
-						<input name="password" type="password" class="input" autocomplete="off" placeholder="密码，至少6位"></input>
-					</p>
-					<p style="line-height: 25px;">
-						<a href="javascirpt:void(0);"  class="button">注册</a>
-					</p>
-				</div>
-				<div class="otherlogin"></div>
-				<div class="otherlist">
-					<div class="logintype qq"></div>
-					<div class="logintype wechat"></div>
-					<div class="logintype weibo"></div>
-				</div>
-			</div>
-		</div>
 	</div>
 <script type="text/javascript">
 var isClick = false;
 $(document).ready(function(){
+	 $(window).scroll(function () {
+       if($(window).scrollTop() > 0){
+    	   $("#header").addClass("headerfix");
+       }else{
+    	   $("#header").removeClass("headerfix");
+       }
+    });
 	$('#create').bind('click',function(){
 		$.ajax({
 			type:'post',
@@ -153,31 +110,7 @@ $(document).ready(function(){
 	});
 
 });
-//兼容火狐、IE8
-function showMask(){
-	$("#mask").css("height",$(document).height());
-	$("#mask").css("width",$(document).width());
-	$("#mask").show();
-}
-//让指定的DIV始终显示在屏幕正中间
-function dialog(type){ 
-	var top = ($(window).height() - $("#dialog").height())/2; 
-	var left = ($(window).width() - $("#dialog").width())/2; 
-	var scrollTop = $(document).scrollTop(); 
-	var scrollLeft = $(document).scrollLeft(); 
-	if(type == 1){
-		$('.logindiv').show();
-		$('.registerdiv').hide();
-	}else{
-		$('.registerdiv').show();
-		$('.logindiv').hide();
-	}
-	$('#dialog').css( { position : 'fixed', 'top' : top + scrollTop, left : left + scrollLeft } ).show();
-}
-function showDialog(type){
-	showMask();
-	dialog(type);
-}
+
 </script>
 </body>
 </html>

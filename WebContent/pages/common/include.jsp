@@ -12,9 +12,10 @@
 	}
 	
 %>
-	<script src="<%=baseUrl%>/js/jquery-1.7.2.min.js" type="text/javascript"></script>
-	<script src="<%=baseUrl%>/js/jquery.SuperSlide.2.1.1.js" type="text/javascript"></script>
- 	<link href="<%=baseUrl%>/css/base.css" rel="stylesheet" type="text/css"/>
+<link href="<%=baseUrl%>/css/base.css" rel="stylesheet" type="text/css"/>
+<script src="<%=baseUrl%>/js/jquery-1.7.2.min.js" type="text/javascript"></script>
+<script src="<%=baseUrl%>/js/jquery.slides.min.js" type="text/javascript"></script>
+<script src="<%=baseUrl%>/js/tinybox.js" type="text/javascript"></script>
 <script type="text/javascript">
 	var baseUrl = '<%=baseUrl%>';
 	var userId = '<%=userId%>';
