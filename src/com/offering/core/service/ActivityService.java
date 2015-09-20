@@ -6,7 +6,6 @@ import com.offering.bean.Activity;
 import com.offering.bean.ChartGroup;
 import com.offering.bean.Member;
 import com.offering.bean.Message;
-import com.offering.bean.PageInfo;
 import com.offering.bean.Speaker;
 
 public interface ActivityService {

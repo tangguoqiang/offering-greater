@@ -1,19 +1,14 @@
 package com.offering.core.controller;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.offering.bean.Greater;
 import com.offering.bean.User;
 import com.offering.common.constant.GloabConstant;
+import com.offering.common.utils.CCPUtils;
 import com.offering.common.utils.MD5Util;
 import com.offering.common.utils.RCUtils;
 import com.offering.common.utils.Utils;
@@ -30,6 +26,9 @@ import com.offering.core.service.UserService;
 
 @Controller
 public class MainController {
+	
+	private Map<String, String> idCodeMap = new HashMap<String, String>();
+	private Map<String, Long> timeMap = new HashMap<String, Long>();
 	
 	@Autowired
 	private MainService mainService;
@@ -69,13 +68,13 @@ public class MainController {
 	
 	@RequestMapping(value = "/greater",  method ={RequestMethod.POST,RequestMethod.GET})
 	public String greater(HttpSession session) {
-		User user = (User)session.getAttribute("user");
+//		User user = (User)session.getAttribute("user");
 		return "pages/greater";
 	}
 	
 	@RequestMapping(value = "/activity",  method ={RequestMethod.POST,RequestMethod.GET})
 	public String activity(HttpSession session) {
-		User user = (User)session.getAttribute("user");
+//		User user = (User)session.getAttribute("user");
 		return "pages/activity";
 	}
 	
@@ -166,16 +165,24 @@ public class MainController {
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> saveUser(@RequestParam("phone") String phone,
-			@RequestParam("password")String password,HttpServletRequest req){
+			@RequestParam("password")String password,String code,HttpServletRequest req){
 		Map<String, Object> m = new HashMap<String, Object>();
+		if(code == null || !code.equals(idCodeMap.get(phone)))
+		{
+			m.put("success", false);
+			m.put("msg", "验证码错误，验证失败！");
+			return m;
+		}
+		
 		User user = new User();
 		user.setPhone(phone);
 		user.setPassword(MD5Util.string2MD5(password));
+		user.setNickname(phone);
 		user.setType(GloabConstant.USER_TYPE_NORMAL);
 		boolean isExists = userService.isExistUser(user);
 		if(isExists){
 			m.put("success", false);
-			m.put("msg", "用户名已经存在！");
+			m.put("msg", "该手机已注册！");
 		}else{
 			if(Utils.isEmpty(user.getId())){
 				//新增用户
@@ -214,77 +221,48 @@ public class MainController {
 	}
 	
 	/**
-	 * 文件下载
-	 * @param path
-	 * @param fileName
+	 * 获取验证码
+	 * @param phone
 	 * @return
 	 */
-	@RequestMapping(value = "/download/{path}/{fileName}.{suff}",method={RequestMethod.GET,RequestMethod.POST})
-	public void dowload(@PathVariable("path")String path, 
-			@PathVariable("fileName")String fileName,@PathVariable("suff")String suff,
-			HttpServletResponse rep){
-		rep.setHeader("Content-Disposition", "attachment; filename=" + fileName + "." + suff);  
-		rep.setContentType("image/*");  
-		String filePath = GloabConstant.ROOT_DIR + path + "/" + fileName + "." + suff;
-		FileInputStream fis = null; 
-        OutputStream os = null; 
-        try {
-        	fis = new FileInputStream(filePath);
-            os = rep.getOutputStream();
-            int count = 0;
-            byte[] buffer = new byte[1024*8];
-            while ( (count = fis.read(buffer)) != -1 ){
-              os.write(buffer, 0, count);
-              os.flush();
-            }
-        }catch(Exception e){
-        	e.printStackTrace();
-        }finally {
-            try {
-				fis.close();
-				os.close();
-			} catch (IOException e) {
-				e.printStackTrace();
+	@RequestMapping(value = "/getCode",method={RequestMethod.POST})
+	@ResponseBody
+	public Map<String, Object> getCode(String phone,String type,HttpServletRequest req) {
+		Map<String, Object> m = Utils.checkParam(req, new String[]{"phone"});
+		if(m != null)
+			return m;
+		
+		
+		User user = new User();
+		user.setPhone(phone);
+		boolean isExists = userService.isExistUser(user);
+		if(GloabConstant.CODE_REG.equals(type) && isExists)
+		{
+			return Utils.failture("该号码已经注册！");
+		}
+		
+		if(GloabConstant.CODE_FINDPASS.equals(type) && !isExists)
+		{
+			return Utils.failture("该号码还未注册！");
+		}
+		
+		if(timeMap.containsKey(phone))
+		{
+			if(System.currentTimeMillis() - timeMap.get(phone) <= 6000)
+			{
+				return Utils.failture("一分钟内只能申请一次验证码!");
 			}
-        }
-	}
-	
-	/**
-	 * 微信分享页面-活动
-	 * 
-	 * @param locale
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value = "/wxshare/activity_{id}",  method ={RequestMethod.POST,RequestMethod.GET})
-	public String share_wx_activity(@PathVariable("id")String id,Model model) {
-		model.addAttribute("activityId", id);
-		return "pages/wx/share";
-	}
-	
-	/**
-	 * 微信分享页面-群成员
-	 * 
-	 * @param locale
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value = "/wxshare/groupmember_{id}",  method ={RequestMethod.POST,RequestMethod.GET})
-	public String share_wx_group(@PathVariable("id")String id,Model model) {
-		model.addAttribute("groupId", id);
-		return "pages/wx/share_group";
-	}
-	
-	/**
-	 * 微信打开APP页面
-	 * 
-	 * @param locale
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value = "/wxshare/open_app",  method ={RequestMethod.POST,RequestMethod.GET})
-	public String open_app() {
-		return "pages/wx/open_app";
+		}
+		String idCode = Utils.createIdCode();
+		String msg = CCPUtils.sendSMS(phone, idCode);
+		if(Utils.isEmpty(msg))
+		{
+			//TODO 验证码时效性实现 memcache或redis
+			idCodeMap.put(phone, idCode);
+			timeMap.put(phone, System.currentTimeMillis());
+			return Utils.success(null);
+		}else
+			return Utils.failture(msg);
 	}
 	
 	/**

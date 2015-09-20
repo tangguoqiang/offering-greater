@@ -68,7 +68,7 @@
 			<p class="loginerror"></p>
 			<p>
 				<label for="account" class="label-account"></label>
-				<input name="account" id="account" type="text" class="input" autocomplete="off" placeholder="邮箱或手机号"></input>
+				<input name="account" id="account" type="text" class="input" autocomplete="off" placeholder="手机号"></input>
 			</p>
 			<p>
 				<label for="password" class="label-password"></label>
@@ -87,7 +87,7 @@
 			</p>
 			<p>
 				<label for="captcha" class="label-captcha"></label>
-				<input name="captcha" type="text" class="input" autocomplete="off" placeholder="验证码"></input>
+				<input name="captcha" id="captcha" type="text" class="input" autocomplete="off" placeholder="验证码"></input>
 			</p>
 			<p>
 				<label for="repassword" class="label-password"></label>
@@ -157,6 +157,28 @@ $(document).ready(function(){
 		$('.logindiv').hide();
 		$('.registerdiv').show();
 	});
+	
+	$("#getcaptcha").live("click",function(){
+		var phone = $("#phone").val();
+		if(phone == ''){
+			$('.regerror').html('手机号不能为空');
+			return false;
+		}
+		$.ajax({
+			type:'post',
+			url:"<%=baseUrl%>"+'/getCode',
+			data:{
+				phone:phone,
+				type:0
+			},
+			dataType:'json',
+			success:function(data){
+				
+			},
+			error:function(textStatus,errorThrown){
+			}
+		});
+	});
 
 });
 
@@ -198,6 +220,8 @@ function login() {
 					$("#greater").hide();
 					$(".gotologin").attr('href', "<%=baseUrl%>"+'/activity');
 				}else{
+					$("#activity").hide();
+					$("#greater").show();
 					$(".gotologin").attr('href', "<%=baseUrl%>"+'/greater');
 				}
 				$('#nologin').hide();
@@ -234,13 +258,14 @@ function register() {
 		url:"<%=baseUrl%>"+'/register',
 		data:{
 			phone:phone,
-			captcha:captcha,
+			code:captcha,
 			password:password
 		},
 		dataType:'json',
 		success:function(data){
 			if(data.success){
-				alert('注册成功');
+				$('.regerror').html('注册成功');
+				TINY.box.hide();
 			}else{
 				$('.regerror').html(data.msg);
 			}
