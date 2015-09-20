@@ -13,12 +13,18 @@
 			<a class="logo" href="<%=baseUrl%>"></a>
 			<div class="userinfo">
 				<ul id="nologin" <%if (userName != null ){%>style="display:none;"<%}%>>
+					<li style="margin-right:5px">
+				    	<a href="javascript:void(0);" onclick="downloadApp();">APP下载</a>
+				    </li>
 					<li style="margin-right:50px"><a href="javascript:void(0);" onClick="showDialog(1);">成为大拿</a></li>
 					<li><a href="javascript:void(0);" onClick="showDialog(2);">注册</a></li>
 					<li style="margin:0px 5px">|</li>
 					<li><a href="javascript:void(0);" onClick="showDialog(1);">登录</a></li>
 				</ul>
 				<ul id="userinfo" <%if (userName == null){%>style="display:none;"<%}%>>
+				    <li style="margin-right:5px">
+				    	<a href="javascript:void(0);" onclick="downloadApp();">APP下载</a>
+				    </li>
 					<li style="margin-right:50px">
 						<a href="<%=baseUrl%>/activity" id="activity" <%if ("1".equals(userType)){%>style="display:none;"<%}%>>发布活动</a>
 						<a href="<%=baseUrl%>/greater" id="greater" <%if ("2".equals(userType)){%>style="display:none;"<%}%>>成为大拿</a>
@@ -273,6 +279,10 @@ function register() {
 		error:function(textStatus,errorThrown){
 		}
 	});
+}
+
+function downloadApp(){
+	window.open("http://www.myoffering.cn");
 }
 </script>
 </body>
