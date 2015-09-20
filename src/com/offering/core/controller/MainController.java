@@ -104,6 +104,7 @@ public class MainController {
 		greater.setPost(post);
 		greater.setExperience(experience);
 		greater.setTags(tags);
+		greater.setIsshow(GloabConstant.YESNO_NO);
 		userService.insertGreater(user, greater);
 		m.put("success", true);
 		return m;
@@ -198,13 +199,13 @@ public class MainController {
 		User returnUser = userService.getUserInfoByPhone(phone,null);
 		if(returnUser != null){
 			m.put("success", true);
-			if(Utils.isEmpty(user.getRc_token()))
+			if(Utils.isEmpty(returnUser.getRc_token()))
 			{
-				String rc_token = RCUtils.getToken(user.getId(), user.getNickname(), "");
-				userService.updateRCToken(user.getId(), rc_token);
-				user.setRc_token(rc_token);
+				String rc_token = RCUtils.getToken(returnUser.getId(), returnUser.getNickname(), "");
+				userService.updateRCToken(returnUser.getId(), rc_token);
+				returnUser.setRc_token(rc_token);
 			}
-			req.getSession().setAttribute("user", user);
+			req.getSession().setAttribute("user", returnUser);
 		}
 		
 		return m;

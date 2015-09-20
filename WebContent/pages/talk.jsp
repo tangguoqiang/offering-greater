@@ -57,7 +57,8 @@
 <script type="text/javascript">
 var isconnect = false;
 $(document).ready(function(){
-	RongIMClient.init("pvxdm17jx829r");
+	//测试 pvxdm17jx829r   生产 uwd1c0sxd3lt1
+	RongIMClient.init("uwd1c0sxd3lt1");
 	//获取融云token
 	var token;
 	if(rcToken == null || rcToken=="")
@@ -132,21 +133,21 @@ $(document).ready(function(){
                        console.log('链接成功');
                        isconnect=true;
                        //TODO   需要开启消息漫游
-                       RongIMClient.getInstance().getHistoryMessages(RongIMClient.ConversationType.GROUP,
-                    		   $("#groupId").val(),
-                    		   20,{
-                    		    onSuccess:function(symbol,HistoryMessages){
+                       //RongIMClient.getInstance().getHistoryMessages(RongIMClient.ConversationType.GROUP,
+                    	//	   $("#groupId").val(),
+                    	//	   20,{
+                    	//	    onSuccess:function(symbol,HistoryMessages){
                     		      // symbol为boolean值，如果为true则表示还有剩余历史消息可拉取，为false的话表示没有剩余历史消息可供拉取。
                     		      // HistoryMessages 为拉取到的历史消息列表
-                    		      for(var i=0,len=HistoryMessages.length;i<len;i++)
-                    		   	  {
-                    		    	  alert(HistoryMessages.get(i).getContent());
-                    		   	  }
-                    		    },onError:function(e){
+                    		//      for(var i=0,len=HistoryMessages.length;i<len;i++)
+                    		//   	  {
+                    		//    	  alert(HistoryMessages.get(i).getContent());
+                    		//   	  }
+                    		//    },onError:function(e){
                     		      // APP未开启消息漫游或处理异常
                     		      // throw new ERROR ......
-                    		    }
-                    		   });
+                    		//    }
+                    	//	   });
                        break;
                    case RongIMClient.ConnectionStatus.CONNECTING:
                        console.log('正在链接');
@@ -287,6 +288,7 @@ function writeMessage(userId,content,isMyself){
 			 $("#talkContent").append("<div class=\"message_content\">"
 						+"<div class=\""+(isMyself?"face fr":"face")+"\"><img src=\""+info.getPortraitUri()+"\" /></div>"
 						+"<div class=\""+(isMyself?"messageleft fr":"message")+"\">"+content+"</div></div>");
+			 $("#talkContent").scrollTop($("#talkContent")[0].scrollHeight);
 		 },onError:function(){
 		     //失败
 		 }

@@ -116,12 +116,13 @@ $(document).ready(function(){
 	$('#slides').slides({
 		preload: true,
 		preloadImage: '<%=baseUrl%>/images/loading.gif',
-		effect: 'fade',
+		effect: 'slide',
 		container: 'slides_container',
 		pagination: true,
 		fadeSpeed: 1500, 
-		slideSpeed: 2000,
-		play: 1
+		slideSpeed: 800,
+		autoHeight: true,
+		play: 5000
 		
 	});
 	 $(window).scroll(function () {

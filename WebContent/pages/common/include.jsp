@@ -1,7 +1,7 @@
 <%@page import="com.offering.bean.User"%>
 <%
 	String baseUrl = request.getContextPath();
-	String serverUrl ="http://121.201.24.60:8080/offering";
+	String serverUrl ="http://www.myoffering.cn:8080/offering";
 	String userName = null,auth = null,userId = null,userType = null,rcToken = null; 
 	if(request.getSession().getAttribute("user") != null){
 		User user = (User)request.getSession().getAttribute("user");
@@ -28,7 +28,7 @@
 	var userId = '<%=userId%>';
 	var userName = '<%=userName%>';
 	var rcToken = '<%=rcToken%>';
-	var serverUrl="http://121.201.24.60:8080/offering"
+	var serverUrl='<%=serverUrl%>';
 	function logout(){
 		$.ajax({
 	        async:false,
