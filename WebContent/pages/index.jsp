@@ -178,6 +178,8 @@ $(document).ready(function(){
 				
 			},
 			error:function(textStatus,errorThrown){
+				if(data.code != 0)
+					$('.regerror').html(data.msg);
 			}
 		});
 	});
