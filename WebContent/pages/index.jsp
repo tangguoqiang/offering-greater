@@ -266,8 +266,9 @@ function register() {
 		dataType:'json',
 		success:function(data){
 			if(data.success){
-				$('.regerror').html('注册成功');
-				TINY.box.hide();
+				//$('.regerror').html('注册成功');
+				//TINY.box.hide();
+				window.location.href=baseUrl+"/greater";
 			}else{
 				$('.regerror').html(data.msg);
 			}
