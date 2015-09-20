@@ -37,9 +37,11 @@
 	</div>
 	<div class="banner">
 		<div id="slides">
-			<img src="<%=baseUrl%>/images/1-offering-bg1.png" width="100%"/>
-			<img src="<%=baseUrl%>/images/1-offering-bg2.png" width="100%"/>
-			<img src="<%=baseUrl%>/images/1-offering-bg3.png" width="100%"/>
+			<div class="slides_container">
+				<img src="<%=baseUrl%>/images/1-offering-bg1.png" />
+				<img src="<%=baseUrl%>/images/1-offering-bg2.png"/>
+				<img src="<%=baseUrl%>/images/1-offering-bg3.png"/>
+			</div>
 		</div>
 	</div>
 	<div class="content">
@@ -111,24 +113,17 @@
 </script>
 <script type="text/javascript">
 $(document).ready(function(){
-	$('#slides').slidesjs({
-        width: 1200,
-        height: 885,
-        navigation: {
-           active: false,
-           effect: "slide"
-        },
-        play: {
-           active: false,
-           effect: "slide",
-           interval: 5000,
-           auto: true,
-           swap: true,
-           pauseOnHover: false,
-           restartDelay: 2500
-         }
-    });
-	
+	$('#slides').slides({
+		preload: true,
+		preloadImage: '<%=baseUrl%>/images/loading.gif',
+		effect: 'fade',
+		container: 'slides_container',
+		pagination: true,
+		fadeSpeed: 1500, 
+		slideSpeed: 2000,
+		play: 1
+		
+	});
 	 $(window).scroll(function () {
        if($(window).scrollTop() > 0){
     	   $("#header").addClass("headerfix");
