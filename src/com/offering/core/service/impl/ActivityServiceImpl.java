@@ -12,7 +12,6 @@ import com.offering.bean.Activity;
 import com.offering.bean.ChartGroup;
 import com.offering.bean.Member;
 import com.offering.bean.Message;
-import com.offering.bean.PageInfo;
 import com.offering.bean.ParamInfo;
 import com.offering.bean.Speaker;
 import com.offering.common.constant.GloabConstant;
@@ -96,7 +95,7 @@ public class ActivityServiceImpl implements ActivityService{
 	{
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT T1.id,title,startTime,endTime,type,status,url,summary, ")
-		   .append("share_activity_image ")
+		   .append("share_activity_image,address,remark ")
 //		   .append("T2.groupName,T2.createTime,T2.groupInfo ")
 		   .append("FROM ACTIVITY_INFO T1 ")
 //		   .append("LEFT JOIN RC_GROUP T2 ON T2.id=T1.id ")
@@ -262,20 +261,12 @@ public class ActivityServiceImpl implements ActivityService{
 	 * @param act
 	 */
 	@Transactional
-	public void insertActivity(Activity act,ChartGroup group)
+	public String insertActivity(Activity act,ChartGroup group)
 	{
-//		String sql = "INSERT INTO ACTIVITY_INFO (title,startTime,endTime,type,status) VALUES (?,?,?,?,?)";
-//		ParamInfo paramInfo = new ParamInfo();
-//		paramInfo.setTypeAndData(Types.VARCHAR, act.getTitle());
-//		paramInfo.setTypeAndData(Types.BIGINT, act.getStartTime());
-//		paramInfo.setTypeAndData(Types.BIGINT, act.getEndTime());
-//		paramInfo.setTypeAndData(Types.CHAR, act.getType());
-//		paramInfo.setTypeAndData(Types.CHAR, act.getStatus());
-//		return activityDao.insertRecord(sql, paramInfo);
-		
 		long id = activityDao.insertRecord(act,"ACTIVITY_INFO");
 		group.setId(id + "");
 		groupDao.insertRecord(group, "RC_GROUP");
+		return id + "";
 	}
 	
 	/**
@@ -286,12 +277,12 @@ public class ActivityServiceImpl implements ActivityService{
 	public void updateActivity(Activity act,ChartGroup group)
 	{
 		StringBuilder sql = new StringBuilder();
-		sql.append("UPDATE ACTIVITY_INFO SET title=?,startTime=?,endTime=?,type=? WHERE id=? ");
+		sql.append("UPDATE ACTIVITY_INFO SET title=?,startTime=?,address=?,remark=? WHERE id=? ");
 		ParamInfo paramInfo = new ParamInfo();
 		paramInfo.setTypeAndData(Types.VARCHAR, act.getTitle());
 		paramInfo.setTypeAndData(Types.BIGINT, act.getStartTime());
-		paramInfo.setTypeAndData(Types.BIGINT, act.getEndTime());
-		paramInfo.setTypeAndData(Types.CHAR, act.getType());
+		paramInfo.setTypeAndData(Types.VARCHAR, act.getAddress());
+		paramInfo.setTypeAndData(Types.VARCHAR, act.getRemark());
 		paramInfo.setTypeAndData(Types.BIGINT, act.getId());
 		activityDao.updateRecord(sql.toString(), paramInfo);
 		

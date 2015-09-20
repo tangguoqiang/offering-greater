@@ -25,9 +25,9 @@
 	<div class="wrap">
 		<div class="left">
 			<div class="activity">
-				<img src="images/cover3.png" width="285" height="180"/>
-				<div class="title">老罗装逼自传</div>
-				<div class="info"><span class="address">上海展览中心</span><span  class="time">2015-07-01 PM 22:00<span></div>
+				<img id="image" src="" width="285" height="180"/>
+				<div id="title" class="title"></div>
+				<div class="info"><span id="address" class="address"></span><span id="time" class="time"><span></div>
 			</div>
 			<div class="member">
 				<div>全部成员</div>
@@ -35,7 +35,6 @@
 					<li></li>
 				</ul>
 			</div>
-		
 		</div>
 		<div class="right">
 			<div id="talkContent" class="content">
@@ -63,8 +62,16 @@ var isconnect = false;
 $(document).ready(function(){
 	RongIMClient.init("pvxdm17jx829r");
 	//获取融云token
-	var token="yy4tgzxTIdWgTEF/BhE+x0vtZK49NiyFqz+o0Ek1+ouxye7SGYnl7VhCaQ4v1OnZGtLExsA8DT/V7K1CbxOuKw==";
-	
+	var token;
+	if(rcToken == null || rcToken=="")
+	{
+		alert("融云token不能为空！");
+		token = "yy4tgzxTIdWgTEF/BhE+x0vtZK49NiyFqz+o0Ek1+ouxye7SGYnl7VhCaQ4v1OnZGtLExsA8DT/V7K1CbxOuKw==";
+		window.close();
+	}
+	else{
+		token = rcToken;
+	}
 	 // 连接融云服务器。
     RongIMClient.connect(token,{
             onSuccess: function (userId) {
@@ -124,13 +131,12 @@ $(document).ready(function(){
     RongIMClient.setConnectionStatusListener({
        onChanged: function (status) {
            switch (status) {
-                   //链接成功
                    case RongIMClient.ConnectionStatus.CONNECTED:
                        console.log('链接成功');
                        isconnect=true;
-                       //TODO $("#groupId").val()  需要开启消息漫游
+                       //TODO   需要开启消息漫游
                        RongIMClient.getInstance().getHistoryMessages(RongIMClient.ConversationType.GROUP,
-                    		   "26",
+                    		   $("#groupId").val(),
                     		   20,{
                     		    onSuccess:function(symbol,HistoryMessages){
                     		      // symbol为boolean值，如果为true则表示还有剩余历史消息可拉取，为false的话表示没有剩余历史消息可供拉取。
@@ -140,18 +146,14 @@ $(document).ready(function(){
                     		    	  alert(HistoryMessages.get(i).getContent());
                     		   	  }
                     		    },onError:function(e){
-                    		    	debugger;
-                    		    	alert(e);
                     		      // APP未开启消息漫游或处理异常
                     		      // throw new ERROR ......
                     		    }
                     		   });
                        break;
-                   //正在链接
                    case RongIMClient.ConnectionStatus.CONNECTING:
                        console.log('正在链接');
                        break;
-                   //重新链接
                    case RongIMClient.ConnectionStatus.RECONNECT:
                        console.log('重新链接');
                        break;
@@ -217,12 +219,33 @@ $(document).ready(function(){
  	$(".send").bind("click",function(){
  		sendMessage($("#sendContent").val());
  	});
+ 	
+ 	loadGreaterInfo();
 });
+
+function loadGreaterInfo(){
+	$.ajax({
+		type:'post',
+		url:"<%=baseUrl%>"+'/activity/getActivityInfo',
+		data:{
+			id:$("#groupId").val()
+		},
+		dataType:'json',
+		success:function(data){
+			$("#image").attr("src",serverUrl + data.url);
+			$("#title").text(data.title);
+			$("#time").text(data.startTime);
+			$("#address").text(data.address);
+			//$("#remark").val(data.remark);
+		},
+		error:function(textStatus,errorThrown){
+		}
+	});
+}
 
 function sendMessage(content){
 	 var msg = RongIMClient.TextMessage.obtain(content);
-	 //TODO $("#groupId").val()
-	 RongIMClient.getInstance().sendMessage(RongIMClient.ConversationType.GROUP, '26', 
+	 RongIMClient.getInstance().sendMessage(RongIMClient.ConversationType.GROUP, $("#groupId").val(), 
 			 msg, null, {
 	                // 发送消息成功
 	                onSuccess: function () {

@@ -23,6 +23,7 @@ import com.offering.bean.Greater;
 import com.offering.bean.User;
 import com.offering.common.constant.GloabConstant;
 import com.offering.common.utils.MD5Util;
+import com.offering.common.utils.RCUtils;
 import com.offering.common.utils.Utils;
 import com.offering.core.service.MainService;
 import com.offering.core.service.UserService;
@@ -126,7 +127,13 @@ public class MainController {
 			m.put("username", user.getName());
 			m.put("nickname", user.getNickname());
 			m.put("type", user.getType());
-			m.put("rc_token", user.getRc_token());
+			if(Utils.isEmpty(user.getRc_token()))
+			{
+				String rc_token = RCUtils.getToken(user.getId(), user.getNickname(), "");
+				userService.updateRCToken(user.getId(), rc_token);
+				user.setRc_token(rc_token);
+				m.put("rc_token", rc_token);
+			}
 		}else{
 			m.put("success", false);
 			m.put("msg", "用户名或密码错误！");

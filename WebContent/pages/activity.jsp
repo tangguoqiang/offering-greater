@@ -47,22 +47,6 @@
 							<div class="addtext">发布活动</div>
 						</div>
 					</li>
-					<!-- <li>
-						<img src="images/cover1.png" width="285" height="180"/>
-						<div class="approve"></div>
-						<div class="title">老罗装逼自传</div>
-						<div class="info"><span class="address">上海展览中心</span><span  class="time">2015-07-01 PM 22:00<span></div>
-					</li>
-					<li>
-						<img src="images/cover2.png" width="285" height="180"/>
-						<div class="title">老罗装逼自传</div>
-						<div class="info"><span class="address">上海展览中心</span><span  class="time">2015-07-01 PM 22:00<span></div>
-					</li>
-					<li>
-						<img src="images/cover3.png" width="285" height="180"/>
-						<div class="title">老罗装逼自传</div>
-						<div class="info"><span class="address">上海展览中心</span><span  class="time">2015-07-01 PM 22:00<span></div>
-					</li> -->
 				</ul>
 			</div>
 		</div>
@@ -71,54 +55,7 @@
 		<img src="images/down.png" width="100%"></div>
 	</div>
 	<div class="mask" id="mask"></div>
-	<div class="model" id="dialog">
-		<div class="close"></div>
-		<div class="dialogcontent">
-			<div class="dialogtitle">
-				<img src="images/backgroud.png" width="100%"/>
-				<div class="loginbtn">登录</div>
-				<div class="registerbtn">注册</div>
-			</div>
-			<div class="">
-				<div class="logindiv">
-					<p style="margin-top:40px">
-						<label for="account" class="label-account"></label>
-						<input name="account" type="text" class="input" autocomplete="off" placeholder="邮箱或手机号"></input>
-					</p>
-					<p>
-						<label for="password" class="label-password"></label>
-						<input name="password" type="password" class="input" autocomplete="off" placeholder="密码"></input>
-					</p>
-					<p  style="line-height: 25px;">
-						<a href="javascirpt:void(0);" class="button">登录</a>
-					</p>
-				</div>
-				<div class="registerdiv">
-					<p style="margin-top:40px">
-						<label for="username" class="label-phone"></label>
-						<input name="username" type="text" class="input" autocomplete="off" placeholder="手机号"></input>
-					</p>
-					<p>
-						<label for="captcha" class="label-captcha"></label>
-						<input name="captcha" type="text" class="input" autocomplete="off" placeholder="验证码"></input>
-					</p>
-					<p>
-						<label for="password" class="label-password"></label>
-						<input name="password" type="password" class="input" autocomplete="off" placeholder="密码，至少6位"></input>
-					</p>
-					<p style="line-height: 25px;">
-						<a href="javascirpt:void(0);"  class="button">注册</a>
-					</p>
-				</div>
-				<div class="otherlogin"></div>
-				<div class="otherlist">
-					<div class="logintype qq"></div>
-					<div class="logintype wechat"></div>
-					<div class="logintype weibo"></div>
-				</div>
-			</div>
-		</div>
-	</div>
+	
 	<div class="model2" id="dialog2">
 		<div class="close2"></div>
 		<div class="dialogcontent">
@@ -127,7 +64,6 @@
 			</div>
 			<div class="">
 				<p>
-				    <input id="id" style="visibility: hidden;">
 					<input id="title" name="title" type="text" class="input" autocomplete="off" placeholder="分享主题"></input>
 				</p>
 				<p>
@@ -144,6 +80,26 @@
 		</div>
 	</div>
 <script type="text/javascript">
+Date.prototype.format = function(fmt)   
+{ //author: meizz   
+  var o = {   
+    "M+" : this.getMonth()+1,                 //月份   
+    "d+" : this.getDate(),                    //日   
+    "h+" : this.getHours(),                   //小时   
+    "m+" : this.getMinutes(),                 //分   
+    "s+" : this.getSeconds(),                 //秒   
+    "q+" : Math.floor((this.getMonth()+3)/3), //季度   
+    "S"  : this.getMilliseconds()             //毫秒   
+  };   
+  if(/(y+)/.test(fmt))   
+    fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));   
+  for(var k in o)   
+    if(new RegExp("("+ k +")").test(fmt))   
+  fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));   
+  return fmt;   
+}; 
+
+var activityId="";
 $(document).ready(function(){
 	$('.close').bind('click',function(){
 		$("#mask").hide();
@@ -167,6 +123,11 @@ $(document).ready(function(){
 		var scrollTop = $(document).scrollTop(); 
 		var scrollLeft = $(document).scrollLeft(); 
 		$('#dialog2').css( { position : 'absolute', 'top' : top + scrollTop, left : left + scrollLeft } ).show();
+		activityId="";
+		$("#title").val("");
+		$("#time").val("");
+		$("#address").val("");
+		$("#remark").val("");
 	});
 	$('.close2').bind('click',function(){
 		$("#mask").hide();
@@ -188,6 +149,9 @@ function loadGreaterInfo(){
 		},
 		dataType:'json',
 		success:function(data){
+			if(data == null)
+				return;
+			$(".avatar").css("background-image","url("+serverUrl+data.url+")");
 			$("#name").text(data.nickname);
 			$("#company").text(data.company);
 			$("#post").text(data.post);
@@ -228,11 +192,11 @@ function loadActivities(){
 			{
 				rec=recs[i];
 				$("#activities").append("<li><img groupId=\""+rec.id+"\" status=\"" + rec.status
-						+"\" src=\"\" width=\"285\" height=\"180\" onclick=\"openTalk(this)\"/>"
-						+"<div class=\"approve\"></div>"
+						+"\" src=\""+serverUrl+rec.url+"\" width=\"285\" height=\"180\" onclick=\"openTalk(this)\"/>"
+						+(rec.status==3?"<div class=\"approve\"></div>":"")
 						+"<div class=\"title\">"+rec.title +"</div>"
 						+"<div class=\"info\"><span class=\"address\">" + rec.address +"</span>"
-						+"<span  class=\"time\">"+rec.startTime+"</span></div></li>");
+						+"<span  class=\"time\">"+formatTime(rec.startTime)+"</span></div></li>");
 			}
 		},
 		error:function(textStatus,errorThrown){
@@ -245,6 +209,7 @@ function realeaseActivity(){
 		type:'post',
 		url:"<%=baseUrl%>"+'/activity/releaseActivity',
 		data:{
+			id:activityId,
 			title:$("#title").val(),
 			startTime:$("#time").val(),
 			address:$("#address").val(),
@@ -294,13 +259,38 @@ function showDialog(type){
 function openTalk(el){
 	var status = $(el).attr("status");
 	var groupId=$(el).attr("groupId");
-	alert(status);
 	if(status == 3)
 	{
 		$('.add-activity-btn').trigger("click");
+		$.ajax({
+			type:'post',
+			url:"<%=baseUrl%>"+'/activity/getActivityInfo',
+			data:{
+				id:groupId
+			},
+			dataType:'json',
+			success:function(data){
+				activityId=groupId;
+				$("#time").val(data.startTime);
+				$("#address").val(data.address);
+				$("#remark").val(data.remark);
+				$("#title").val(data.title);
+			},
+			error:function(textStatus,errorThrown){
+			}
+		});
 	}
 	else
 		window.open(baseUrl+"/talk?groupId="+groupId,"talk"+groupId);
+}
+
+function formatTime(value)
+{
+	if(typeof value=="undefined" || value.trim() == "")
+		return "";
+	var d = new Date();
+	d.setTime(parseInt(value));
+	return d.format("yyyy-MM-dd hh:mm");
 }
 </script>
 </body>

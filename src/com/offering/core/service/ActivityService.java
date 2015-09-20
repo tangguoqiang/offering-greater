@@ -101,7 +101,7 @@ public interface ActivityService {
 	 * 新增活动
 	 * @param act
 	 */
-	void insertActivity(Activity act,ChartGroup group);
+	String insertActivity(Activity act,ChartGroup group);
 	
 	/**
 	 * 更新活动

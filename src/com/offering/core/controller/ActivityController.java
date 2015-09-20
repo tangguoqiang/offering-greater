@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.offering.bean.Activity;
 import com.offering.bean.ChartGroup;
+import com.offering.bean.Speaker;
 import com.offering.common.constant.GloabConstant;
 import com.offering.common.utils.Utils;
 import com.offering.core.service.ActivityService;
@@ -76,6 +77,8 @@ public class ActivityController {
 		if(!Utils.isEmpty(act.getStartTime()))
 		{
 			act.setStartTime(sdf.parse(act.getStartTime()).getTime() + "");
+		}else{
+			act.setStartTime(null);
 		}
 		
 		if(!Utils.isEmpty(act.getEndTime()))
@@ -89,7 +92,11 @@ public class ActivityController {
 		if(Utils.isEmpty(act.getId())){
 			//新增活动
 			group.setCreateTime(System.currentTimeMillis() + "");
-			activityService.insertActivity(act,group);
+			String id = activityService.insertActivity(act,group);
+			Speaker speaker = new Speaker();
+			speaker.setSpeakerId(act.getCreaterId());
+			speaker.setActivityId(id);
+			activityService.insertSpeaker(speaker);
 		}else{
 			//更新活动
 			activityService.updateActivity(act,group);
@@ -114,13 +121,12 @@ public class ActivityController {
 		{
 			m.put("id", act.getId());
 			m.put("title", act.getTitle());
-			m.put("type", act.getType());
 			if(!Utils.isEmpty(act.getStartTime()))
 				act.setStartTime(sdf.format(new Date(Long.valueOf(act.getStartTime()))));
-			if(!Utils.isEmpty(act.getEndTime()))
-				act.setEndTime(sdf.format(new Date(Long.valueOf(act.getEndTime()))));
 			m.put("startTime", act.getStartTime());
-			m.put("endTime", act.getEndTime());
+			m.put("address", act.getAddress());
+			m.put("remark", act.getRemark());
+			m.put("url", act.getUrl());
 		}
 		
 		ChartGroup group = activityService.getGroupById(id);

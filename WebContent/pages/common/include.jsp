@@ -20,6 +20,7 @@
 	var userId = '<%=userId%>';
 	var userName = '<%=userName%>';
 	var rcToken = '<%=rcToken%>';
+	var serverUrl="http://121.201.24.60:8080/offering"
 	function logout(){
 		$.ajax({
 	        async:false,
