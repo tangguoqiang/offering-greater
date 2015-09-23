@@ -121,7 +121,7 @@ div{display: block;}
 .baseinfo .name{font-size: 16px;}
 .baseinfo p{font-size: 13px; line-height: 30px;height: 30px;}
 .work {text-align: left;margin-top:20px;background: #fff;padding: 20px 0px 10px 10px;}
-.work p{font-size: 13px; line-height: 30px;height: 30px;}
+.work p{font-size: 13px; line-height: 30px;}
 .activitycontent .right .title{margin-left:10px;color:#fff;position: absolute;bottom: 28px;font-size: 14px;}
 .activitycontent .right .info{margin-left:10px;color:#fff;position: absolute;bottom: 10px;}
 .activitycontent .right .info .time{ float: right;color:#F0CC14;  margin-left: 15px;}

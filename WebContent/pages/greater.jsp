@@ -6,9 +6,50 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <%@ include file="common/include.jsp"%>
+<link type="text/css" href="<%=baseUrl%>/css/jquery.Jcrop.min.css" rel="stylesheet" />
+<link href="<%=baseUrl%>/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="<%=baseUrl%>/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="<%=baseUrl%>/js/jquery.min.js"></script>
+<script type="text/javascript" src="<%=baseUrl%>/js/jquery.color.js"></script>
+<script type="text/javascript" src="<%=baseUrl%>/js/jquery.Jcrop.js"></script>
+<script src="<%=baseUrl%>/js/bootstrap.min.js" type="text/javascript"></script>
 <%if(userName == null){
 	response.sendRedirect(baseUrl);
 }%>
+
+<style type="text/css">
+
+/* Apply these styles only when #preview-pane has
+   been placed within the Jcrop widget */
+.jcrop-holder #preview-pane {
+  display: block;
+  position: absolute;
+  z-index: 2000;
+  top: 10px;
+  right: -280px;
+  padding: 6px;
+  border: 1px rgba(0,0,0,.4) solid;
+  background-color: white;
+
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+
+  -webkit-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* The Javascript code will set the aspect ratio of the crop
+   area based on the size of the thumbnail preview,
+   specified here */
+#preview-pane .preview-container {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+}
+
+</style>
 <body style="background-color:#ededeb">
 	<div class="header" id="header">
 		<div class="wrap">
@@ -25,7 +66,9 @@
 		<img src="images/backgroud3.png" width="100%"/>
 	</div>
 	<div class="content" >
-		<div class="avatar"><input type="file" id="fileToUpload" name="fileToUpload"></div>
+		<div style="width: 100px;height: 100px;margin: 36px auto;">
+			<img id="icon" style="border-radius:50px;width: 100px;height: 100px;cursor: pointer;" src="images/cover3.png"/>
+		</div>
 		<div class="fill">
 			<div class="msg" id="msg"></div>
 			<p>
@@ -59,7 +102,44 @@
 			<a class="button2" id="create">提交申请</a>
 		</div>
 	</div>
-	<div class="footer">
+	<div class="footer"></div>
+	
+	<div class="modal fade" id="uploadModal">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h4 class="modal-title">附件上传</h4>
+	      </div>
+	      <div class="modal-body" >
+	        <form class="form-horizontal">
+			  <div class="form-group">
+			    <div class="col-sm-9">
+				    <div class="col-sm-9">
+				      	<input type="file" class="form-control" id="fileToUpload" name="fileToUpload">
+				    </div>
+			    </div>
+			   </div>
+			   <div class="form-group" >
+			    <div class="col-sm-8">
+				   <div class="jc-demo-box">
+  						<img class="img-responsive" src="" id="uploadImage" alt="图片区域" align="middle"/>
+					</div>
+			    </div>
+			    <div class="col-sm-4">
+			    	<div id="preview-pane">
+					    <div class="preview-container">
+					      	<img  id="previewImage" style="width: 100px;height: 100px;" src="" class="jcrop-preview" alt="预览区域" align="middle"/>
+					   	</div>
+					</div>
+				</div>
+			  </div>
+			</form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-primary" onclick="upload()">上传</button>
+	      </div>
+	    </div>
+	  </div>
 	</div>
 <script type="text/javascript">
 var isClick = false;
@@ -176,12 +256,59 @@ $(document).ready(function(){
 				isClick = false;
 			}
 		});
-		 
-
 	});
+	
+	$("#icon").bind("click",function(){
+		$("#uploadModal").modal("show");
+	});
+	
+	$('#fileToUpload').bind('change', function(){
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			var xsize = $('#preview-pane .preview-container').width();
+			var ysize = $('#preview-pane .preview-container').height();
+			$('#uploadImage').attr("src",e.target.result);
+			$('#previewImage').attr("src",e.target.result);
+			$('#uploadImage').Jcrop({
+				  onChange: updatePreview,
+				  onSelect: updatePreview,
+				  aspectRatio: xsize / ysize
+				},function(){
+				  // Use the API to get the real image size
+				  var bounds = this.getBounds();
+				  boundx = bounds[0];
+				  boundy = bounds[1];
+				  // Store the API in the jcrop_api variable
+				  jcrop_api = this;
+				
+				  // Move the preview into the jcrop container for css positioning
+				  //$('#preview-pane').appendTo(jcrop_api.ui.holder);
+				}); 
+		}
+		reader.readAsDataURL(this.files[0]);
+		this.files = [];
+	})
+	
+	function updatePreview(c)
+	{
+		var xsize = $('#preview-pane .preview-container').width();
+		var ysize = $('#preview-pane .preview-container').height();
+		var pimg = $('#preview-pane .preview-container img');
+		console.log('init',[xsize,ysize]);
+	  	if (parseInt(c.w) > 0)
+	  	{
+	    	var rx = xsize / c.w;
+	    	var ry = ysize / c.h;
 
+	    	pimg.css({
+	      		width: Math.round(rx * boundx) + 'px',
+	      		height: Math.round(ry * boundy) + 'px',
+	      		marginLeft: '-' + Math.round(rx * c.x) + 'px',
+	      		marginTop: '-' + Math.round(ry * c.y) + 'px'
+	    	});
+	  }
+	}
 });
-
 
 </script>
 </body>

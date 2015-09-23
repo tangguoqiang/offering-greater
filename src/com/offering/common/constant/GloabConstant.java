@@ -15,6 +15,12 @@ public class GloabConstant {
 	public final static String YESNO_NO = "1";
 	
 	/**
+	 *  有效状态 0：无效 1：有效
+	 */
+	public final static String STATUS_EFFECT = "0";
+	public final static String STATUS_INVALID = "1";
+	
+	/**
 	 *  验证码类型 0：注册  1：找回密码
 	 */
 	public final static String CODE_REG = "0";

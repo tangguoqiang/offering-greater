@@ -109,6 +109,11 @@ Date.prototype.format = function(fmt)
 
 var activityId="";
 $(document).ready(function(){
+	var leftheight =$('.left').height();
+	var rightheight =$('.right').height();
+	var height = leftheight>rightheight ? leftheight : rightheight;
+	$('.activitycontent').css({'height': height+20});
+
 	$('.add-activity-btn').bind('click',function(){
 		var html = $('#dialog').html();
 		TINY.box.show(html,0,0,0,1);
@@ -190,8 +195,8 @@ function loadGreaterInfo(){
 				}
 			}
 			
-			$("#work").append("<p>"+data.experience+"</p>");
-			$("#job").append("<p>"+data.job+"</p>");
+			$("#work").append("<p>"+data.experience.replace(/\\n/g,"<br>")+"</p>");
+			$("#job").append("<p>"+data.job.replace(/\\n/g,"<br>")+"</p>");
 		},
 		error:function(textStatus,errorThrown){
 		}
