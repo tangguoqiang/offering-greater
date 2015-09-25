@@ -1,7 +1,10 @@
+<%@page import="com.offering.common.constant.GloabConstant"%>
 <%@page import="com.offering.bean.User"%>
 <%
 	String baseUrl = request.getContextPath();
-	String serverUrl ="http://www.myoffering.cn:8080/offering";
+	//测试 http://121.201.24.60:8080/offering/ 正式 http://www.myoffering.cn:8080/offering
+	String serverUrl = "0".equals(GloabConstant.PRODUCT_MODEL) 
+						? "http://121.201.24.60:8080/offering/" : "http://www.myoffering.cn:8080/offering";
 	String userName = null,auth = null,userId = null,userType = null,rcToken = null; 
 	if(request.getSession().getAttribute("user") != null){
 		User user = (User)request.getSession().getAttribute("user");
@@ -26,6 +29,7 @@
 <script type="text/javascript" src="<%=baseUrl%>/js/jquery-ui-timepicker-addon.js"></script>
 <script type="text/javascript" src="<%=baseUrl%>/js/jquery-ui-timepicker-zh-CN.js"></script>
 <script type="text/javascript">
+	var product_model = '<%=GloabConstant.PRODUCT_MODEL%>';
 	var baseUrl = '<%=baseUrl%>';
 	var userId = '<%=userId%>';
 	var userName = '<%=userName%>';

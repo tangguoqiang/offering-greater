@@ -44,6 +44,7 @@
    area based on the size of the thumbnail preview,
    specified here */
 #preview-pane .preview-container {
+	border-radius: 50px;
   width: 100px;
   height: 100px;
   overflow: hidden;
@@ -67,7 +68,11 @@
 	</div>
 	<div class="content" >
 		<div style="width: 100px;height: 100px;margin: 36px auto;">
-			<img id="icon" style="border-radius:50px;width: 100px;height: 100px;cursor: pointer;" src="images/cover3.png"/>
+			<div id="preview-pane">
+				<div class="preview-container">
+					<img id="icon" class="jcrop-preview" style="width: 100px;height: 100px;cursor: pointer;" src="images/upload_image.jpg"/>
+				</div>
+			</div>
 		</div>
 		<div class="fill">
 			<div class="msg" id="msg"></div>
@@ -116,19 +121,23 @@
 			    <div class="col-sm-9">
 				    <div class="col-sm-9">
 				      	<input type="file" class="form-control" id="fileToUpload" name="fileToUpload">
+				    	<input type="hidden" id="x" name="x" />  
+			             <input type="hidden" id="y" name="y" />  
+			             <input type="hidden" id="w" name="w" />  
+			             <input type="hidden" id="h" name="h" />  
 				    </div>
 			    </div>
 			   </div>
-			   <div class="form-group" >
+			   <div class="form-group" style="height: 300px;">
 			    <div class="col-sm-8">
 				   <div class="jc-demo-box">
-  						<img class="img-responsive" src="" id="uploadImage" alt="图片区域" align="middle"/>
+  						<img style="width: 300px;height: 300px;" src="" id="uploadImage" alt="图片区域"/>
 					</div>
 			    </div>
 			    <div class="col-sm-4">
 			    	<div id="preview-pane">
 					    <div class="preview-container">
-					      	<img  id="previewImage" style="width: 100px;height: 100px;" src="" class="jcrop-preview" alt="预览区域" align="middle"/>
+					      	<img  id="previewImage" style="width: 100px;height: 100px;" src="" class="jcrop-preview" alt=""/>
 					   	</div>
 					</div>
 				</div>
@@ -136,7 +145,7 @@
 			</form>
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-primary" onclick="upload()">上传</button>
+	        <button id="okBtn" type="button" class="btn btn-primary">确定</button>
 	      </div>
 	    </div>
 	  </div>
@@ -151,6 +160,7 @@ $(document).ready(function(){
     	   $("#header").removeClass("headerfix");
        }
     });
+	 
 	$('#create').bind('click',function(){
 		if(isClick == true){return false;}
 		isClick = true;
@@ -204,8 +214,8 @@ $(document).ready(function(){
 			$('#msg').show();
 			return false;
 		}
-		var tag = field+','+university;
-		if($("#fileToUpload").val() == ''){
+		var tag = company + ',' + post + ',' +field+','+university;
+		if($("#icon").attr("src") == '' || $("#icon").attr("src") == "images/upload_image.jpg"){
 			msg = "请选择上传头像";
 			$("#msg").html(msg);
 			$('#msg').show();
@@ -222,35 +232,20 @@ $(document).ready(function(){
 				experience:experience,
 				tags:tag,
 				job:job,
+				image:$("#icon").attr("src"),
+				w:$("#w").val(),
+				h:$("#h").val(),
+				x:$("#x").val(),
+				y:$("#y").val()
 			},
 			dataType:'json',
 			success:function(data){
 				isClick = false;
-				if(data.success){
-					$.ajaxFileUpload({
-				 		url:"<%=baseUrl%>/greater/uploadImage",
-				 		secureuri:false,
-				 		type:'GET',
-				 		fileElementId:'fileToUpload',
-				 		dataType: 'json',
-				 		data:{
-				 			id:'<%=userId%>',
-				 			uploadType: 0
-				 		},
-				 		success: function (result, status){
-				 			$("#msg").html('提交成功！');
-							$('#msg').show();
-							setTimeout(function(){
-								window.location.href = '<%=baseUrl%>'+'/activity';
-							},1500 );
-				 		},
-				 		error: function (data, status, e){
-				 		}
-				 	});
-				}else{
-					$("#msg").html(data.msg);
-					$('#msg').show();
-				}
+				$("#msg").html('提交成功！');
+				$('#msg').show();
+				setTimeout(function(){
+					window.location.href = '<%=baseUrl%>'+'/activity';
+				},600);
 			},
 			error:function(textStatus,errorThrown){
 				isClick = false;
@@ -260,14 +255,30 @@ $(document).ready(function(){
 	
 	$("#icon").bind("click",function(){
 		$("#uploadModal").modal("show");
+		$('#fileToUpload').val("");
+		$(".jc-demo-box").empty();
+		$('.jc-demo-box').append("<img style=\"width: 300px;height: 300px;text-align: center;\" class=\"img-responsive\" src=\"\" id=\"uploadImage\" alt=\"图片区域\"/>");
+		$('#previewImage').attr("src","");
 	});
 	
 	$('#fileToUpload').bind('change', function(){
+		var fileSize = getFileSize(document.getElementById("fileToUpload"));
+		if(fileSize > 2*1024*1024)
+		{
+			$('#fileToUpload').val("");
+			$(".jc-demo-box").empty();
+			$('.jc-demo-box').append("<img style=\"width: 300px;height: 300px;text-align: center;\" class=\"img-responsive\" src=\"\" id=\"uploadImage\" alt=\"图片区域\"/>");
+			$('#previewImage').attr("src","");
+			alert("文件大小不能超过2M");
+			return;
+		}
+			
 		var reader = new FileReader();
 		reader.onload = function(e) {
 			var xsize = $('#preview-pane .preview-container').width();
 			var ysize = $('#preview-pane .preview-container').height();
-			$('#uploadImage').attr("src",e.target.result);
+			$(".jc-demo-box").empty();
+			$('.jc-demo-box').append("<img style=\"width: 300px;height: 300px;\" class=\"img-responsive\" src=\""+ e.target.result+"\" id=\"uploadImage\"/>");
 			$('#previewImage').attr("src",e.target.result);
 			$('#uploadImage').Jcrop({
 				  onChange: updatePreview,
@@ -287,28 +298,60 @@ $(document).ready(function(){
 		}
 		reader.readAsDataURL(this.files[0]);
 		this.files = [];
-	})
+	});
 	
-	function updatePreview(c)
-	{
-		var xsize = $('#preview-pane .preview-container').width();
-		var ysize = $('#preview-pane .preview-container').height();
+	$("#okBtn").bind("click",function(){
+		$("#uploadModal").modal("hide");
 		var pimg = $('#preview-pane .preview-container img');
-		console.log('init',[xsize,ysize]);
-	  	if (parseInt(c.w) > 0)
-	  	{
-	    	var rx = xsize / c.w;
-	    	var ry = ysize / c.h;
-
-	    	pimg.css({
-	      		width: Math.round(rx * boundx) + 'px',
-	      		height: Math.round(ry * boundy) + 'px',
-	      		marginLeft: '-' + Math.round(rx * c.x) + 'px',
-	      		marginTop: '-' + Math.round(ry * c.y) + 'px'
-	    	});
-	  }
-	}
+		$("#icon").attr("src",$("#uploadImage").attr("src"));
+		$("#icon").css({
+			width:pimg.css("width"),
+			height:pimg.css("height"),
+			marginLeft:pimg.css("marginLeft"),
+			marginTop:pimg.css("marginTop")
+		});
+	});
 });
+
+function updatePreview(c)
+{
+	$("#x").val(c.x);  
+    $("#y").val(c.y);  
+    $("#w").val(c.w);  
+    $("#h").val(c.h);  
+	var xsize = $('#preview-pane .preview-container').width();
+	var ysize = $('#preview-pane .preview-container').height();
+	var pimg = $('#preview-pane .preview-container img');
+  	if (parseInt(c.w) > 0)
+  	{
+    	var rx = xsize / c.w;
+    	var ry = ysize / c.h;
+
+    	pimg.css({
+      		width: Math.round(rx * boundx) + 'px',
+      		height: Math.round(ry * boundy) + 'px',
+      		marginLeft: '-' + Math.round(rx * c.x) + 'px',
+      		marginTop: '-' + Math.round(ry * c.y) + 'px'
+    	});
+  }
+}
+
+//获取获取文件大小
+function getFileSize(fileObj){　　
+	var  Sys = {};
+	if(navigator.userAgent.indexOf("MSIE")>0)
+		Sys.ie=true;
+	    
+	if(navigator.userAgent.indexOf("Firefox")>0)
+		Sys.firefox=true;
+	var filesize =0;
+	if(Sys.firefox){
+		filesize = fileObj.files[0].size;
+	}else{
+		filesize = fileObj.files[0].size;
+	}
+	return filesize;
+}
 
 </script>
 </body>

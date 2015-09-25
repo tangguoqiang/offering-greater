@@ -9,6 +9,11 @@ package com.offering.common.constant;
 public class GloabConstant {
 	
 	/**
+	 * 产品状态 0：测试 1:生产
+	 */
+	public final static String PRODUCT_MODEL = "0";
+	
+	/**
 	 *  是否 0：是  1：否
 	 */
 	public final static String YESNO_YES = "0";
@@ -91,6 +96,7 @@ public class GloabConstant {
 	 * 系统字典分组-年级
 	 */
 	public final static String GROUP_GRADE = "grade";
+	
 	
 	/**
 	 * 文件系统根目录 /home/offering/images/ and C:\\gtang\\picture\\

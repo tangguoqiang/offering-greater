@@ -58,7 +58,10 @@
 var isconnect = false;
 $(document).ready(function(){
 	//测试 pvxdm17jx829r   生产 uwd1c0sxd3lt1
-	RongIMClient.init("uwd1c0sxd3lt1");
+	if(product_model == "0")
+		RongIMClient.init("pvxdm17jx829r");
+	else
+		RongIMClient.init("uwd1c0sxd3lt1");
 	//获取融云token
 	var token;
 	if(rcToken == null || rcToken=="")

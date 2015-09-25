@@ -26,10 +26,10 @@
 		<div class="wrap">
 			<div class="left">
 				<div id="baseinfo" class="baseinfo">
-					<div class="avatar" style="margin:0px auto 20px auto;"></div>
+					<img id="icon" style="margin:0px auto 20px auto;height: 100px;width: 100px;border-radius: 50px;"></img>
 					<div id="name" class="name"></div>
-					<p id="company"></p>
-					<p id="post"></p>
+					<!-- <p id="company"></p>
+					<p id="post"></p> -->
 				</div>
 				<div id="work" class="work">
 					<div class="title">工作经历</div>
@@ -181,10 +181,10 @@ function loadGreaterInfo(){
 		success:function(data){
 			if(data == null)
 				return;
-			$(".avatar").css("background-image","url("+serverUrl+data.url+")");
+			$("#icon").attr("src",serverUrl+data.url);
 			$("#name").text(data.nickname);
-			$("#company").text(data.company);
-			$("#post").text(data.post);
+			//$("#company").text(data.company);
+			//$("#post").text(data.post);
 			var tag = data.tags;
 			if(tag != null)
 			{
