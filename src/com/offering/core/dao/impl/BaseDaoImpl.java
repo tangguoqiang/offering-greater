@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +22,7 @@ import org.springframework.util.StringUtils;
 
 import com.offering.bean.PageInfo;
 import com.offering.bean.ParamInfo;
+import com.offering.common.Column;
 import com.offering.common.mapper.CommonRowMapper;
 import com.offering.common.utils.Utils;
 import com.offering.core.dao.BaseDao;
@@ -126,7 +128,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		String name;
 		for (Field field : fields) {
 			name = field.getName();
-			if ("serialVersionUID".equals(field.getName()))
+			if(field.getAnnotation(Column.class) == null)
 				continue;
 			try {
 				value = cls.getMethod(
@@ -209,6 +211,20 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		}else{
 			jdbcTemplate.update(sql, paramInfo.getParams(), paramInfo.getTypes());
 		}
+	}
+	
+	/**
+	 * 根据主键删除记录
+	 * @param id
+	 * @param tableName
+	 */
+	public void delRecordById(String id,String tableName){
+		StringBuilder sql = new StringBuilder();
+		sql.append("DELETE FROM ").append(tableName)
+		   .append(" WHERE id=? ");
+		ParamInfo paramInfo = new ParamInfo();
+		paramInfo.setTypeAndData(Types.BIGINT, id);
+		updateRecord(sql.toString(), paramInfo);
 	}
 	
 	public void delRecord(String sql,ParamInfo paramInfo){

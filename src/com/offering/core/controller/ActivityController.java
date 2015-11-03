@@ -127,6 +127,7 @@ public class ActivityController {
 			m.put("address", act.getAddress());
 			m.put("remark", act.getRemark());
 			m.put("url", act.getUrl());
+			m.put("type", act.getType());
 		}
 		
 		ChartGroup group = activityService.getGroupById(id);

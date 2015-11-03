@@ -1,5 +1,7 @@
 package com.offering.bean;
 
+import com.offering.common.Column;
+
 /**
  * 活动
  * @author surfacepro3
@@ -7,17 +9,29 @@ package com.offering.bean;
  */
 public class Activity {
 
+	@Column
 	private String id;
+	@Column
 	private String title;
+	@Column
 	private String startTime;
+	@Column
 	private String endTime;
+	@Column
 	private String type;
+	@Column
 	private String status;
+	@Column
 	private String url;
+	@Column
 	private String summary;
+	@Column
 	private String share_activity_image;
+	@Column
 	private String createrId;
+	@Column
 	private String address;
+	@Column
 	private String remark;
 	
 	public String getId() {

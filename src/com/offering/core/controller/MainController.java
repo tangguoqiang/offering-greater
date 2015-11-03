@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.cloopen.rest.sdk.utils.encoder.BASE64Decoder;
 import com.offering.bean.Greater;
 import com.offering.bean.ImageCoord;
+import com.offering.bean.Topic;
 import com.offering.bean.User;
 import com.offering.common.constant.GloabConstant;
 import com.offering.common.utils.CCPUtils;
@@ -91,67 +92,6 @@ public class MainController {
 	}
 
 	/**
-	 * 新增大拿
-	 * 
-	 * @param user
-	 * @return
-	 */
-	@RequestMapping(value = "/becomeGreater", method = RequestMethod.POST)
-	@ResponseBody
-	public Map<String, Object> addGreater(
-			@RequestParam("userid") String userid,
-			@RequestParam("nickname") String nickname,
-			@RequestParam("company") String company,
-			@RequestParam("post") String post,
-			@RequestParam("experience") String experience,
-			@RequestParam("tags") String tags, @RequestParam("job") String job,
-			@RequestParam("image") String image, 
-			ImageCoord coord,HttpServletRequest req) {
-		Pattern pattern = Pattern.compile("data:image/(.*?);base64,");
-		Matcher match = pattern.matcher(image);
-		String suff = null;
-		if (match.find()) {
-			suff = match.group(1);
-			LOG.info(suff);
-			image = image.replace(match.group(), "");
-		}
-		BASE64Decoder decoder = new BASE64Decoder();
-		
-		String imageName = "";
-		try {
-			byte[] decodedBytes = decoder.decodeBuffer(image);
-			imageName = "greater_" +System.currentTimeMillis() 
-					+ "_" + userid + "." + ("jpeg".equals(suff) ? "jpg" :suff);
-			String imgFilePath = GloabConstant.ROOT_DIR +"userImages/"+ imageName;
-			FileOutputStream out = new FileOutputStream(imgFilePath);
-			out.write(decodedBytes);
-			out.close();
-			
-			ImageUtil.cutImage(imgFilePath, imgFilePath, 
-					suff,coord);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		Map<String, Object> m = new HashMap<String, Object>();
-		Greater greater = new Greater();
-		User user = userService.getUserInfoById(userid);
-		user.setNickname(nickname);
-		user.setType(GloabConstant.USER_TYPE_GREATER);
-		user.setUrl("/download/userImages/" + imageName);
-		greater.setCompany(company);
-		greater.setJob(job);
-		greater.setPost(post);
-		greater.setExperience(experience);
-		greater.setTags(tags);
-		greater.setIsshow(GloabConstant.YESNO_NO);
-		userService.insertGreater(user, greater);
-		
-		m.put("success", true);
-		return m;
-	}
-
-	/**
 	 * 登陆操作
 	 * 
 	 * @param locale
@@ -170,6 +110,7 @@ public class MainController {
 			m.put("username", user.getName());
 			m.put("nickname", user.getNickname());
 			m.put("type", user.getType());
+			m.put("url", user.getUrl());
 			if (Utils.isEmpty(user.getRc_token())) {
 				String rc_token = RCUtils.getToken(user.getId(),
 						user.getNickname(), "");
@@ -318,6 +259,168 @@ public class MainController {
 		} else
 			return Utils.failture(msg);
 	}
+	
+	/**
+	 * 新增大拿
+	 * 
+	 * @param user
+	 * @return
+	 */
+	@RequestMapping(value = "/becomeGreater", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> becomeGreater(Greater greater,String image, 
+			ImageCoord coord,HttpServletRequest req) {
+		Pattern pattern = Pattern.compile("data:image/(.*?);base64,");
+		Matcher match = pattern.matcher(image);
+		String suff = null;
+		if (match.find()) {
+			suff = match.group(1);
+			LOG.info(suff);
+			image = image.replace(match.group(), "");
+		}
+		BASE64Decoder decoder = new BASE64Decoder();
+		
+		String imageName = "";
+		try {
+			byte[] decodedBytes = decoder.decodeBuffer(image);
+			imageName = "greater_" +System.currentTimeMillis() 
+					+ "_" + greater.getId() + "." + ("jpeg".equals(suff) ? "jpg" :suff);
+			String imgFilePath = GloabConstant.ROOT_DIR +"userImages/"+ imageName;
+			FileOutputStream out = new FileOutputStream(imgFilePath);
+			out.write(decodedBytes);
+			out.close();
+			
+			ImageUtil.cutImage(imgFilePath, imgFilePath, 
+					suff,coord);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		Map<String, Object> m = new HashMap<String, Object>();
+		
+		greater.setUrl("/download/userImages/" + imageName);
+		mainService.becomeGreater(greater);
+		
+		m.put("success", true);
+		m.put("url", greater.getUrl());
+		return m;
+	}
+	
+	/**
+	 * 更新大拿信息
+	 * 
+	 * @param user
+	 * @return
+	 */
+	@RequestMapping(value = "/updateGreater", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> updateGreater(Greater greater,String image, 
+			ImageCoord coord,HttpServletRequest req) {
+		if(!Utils.isEmpty(image)){
+			Pattern pattern = Pattern.compile("data:image/(.*?);base64,");
+			Matcher match = pattern.matcher(image);
+			String suff = null;
+			if (match.find()) {
+				suff = match.group(1);
+				LOG.info(suff);
+				image = image.replace(match.group(), "");
+			}
+			BASE64Decoder decoder = new BASE64Decoder();
+			
+			String imageName = "";
+			try {
+				byte[] decodedBytes = decoder.decodeBuffer(image);
+				imageName = "greater_" +System.currentTimeMillis() 
+						+ "_" + greater.getId() + "." + ("jpeg".equals(suff) ? "jpg" :suff);
+				String imgFilePath = GloabConstant.ROOT_DIR +"userImages/"+ imageName;
+				FileOutputStream out = new FileOutputStream(imgFilePath);
+				out.write(decodedBytes);
+				out.close();
+				
+				ImageUtil.cutImage(imgFilePath, imgFilePath, 
+						suff,coord);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			greater.setUrl("/download/userImages/" + imageName);
+		}
+
+		Map<String, Object> m = new HashMap<String, Object>();
+		mainService.updateGreater(greater);
+		m.put("success", true);
+		m.put("url", greater.getUrl());
+		return m;
+	}
+	
+	/**
+	 * 获取大拿信息
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/getGreaterInfo", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> getGreaterInfo(String id) {
+		Map<String, Object> m = new HashMap<String, Object>();
+		m.put("success", true);
+		m.put("greater", mainService.getGreaterInfo(id));
+		return m;
+	}
+	
+	/**
+	 * 获取话题列表
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/listTopics", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> listTopics(String id) {
+		Map<String, Object> m = new HashMap<String, Object>();
+		m.put("success", true);
+		m.put("topics", mainService.listTopics(id));
+		return m;
+	}
+	
+	/**
+	 * 获取话题信息
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/getTopicInfo", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> getTopicInfo(String id) {
+		Map<String, Object> m = new HashMap<String, Object>();
+		m.put("success", true);
+		m.put("topic", mainService.getTopicInfo(id));
+		return m;
+	}
+	
+	/**
+	 * 删除话题
+	 * @param topic
+	 * @return
+	 */
+	@RequestMapping(value = "/delTopic", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> delTopic(String id) {
+		Map<String, Object> m = new HashMap<String, Object>();
+		mainService.delTopic(id);
+		m.put("success", true);
+		return m;
+	}
+	
+	/**
+	 * 新增/编辑话题
+	 * @param topic
+	 * @return
+	 */
+	@RequestMapping(value = "/saveTopic", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> saveTopic(Topic topic) {
+		Map<String, Object> m = new HashMap<String, Object>();
+		m.put("success", true);
+		m.put("id", mainService.saveTopic(topic));
+		return m;
+	}
 
 	/**
 	 * 聊天入口
@@ -329,5 +432,19 @@ public class MainController {
 	public String talk(String groupId, HttpSession session, Model model) {
 		model.addAttribute("groupId", groupId);
 		return "pages/talk";
+	}
+	
+	/**
+	 * 注销操作
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/listSchools", method = {RequestMethod.POST,RequestMethod.GET})
+	@ResponseBody
+	public Map<String, Object> listSchools() {
+		Map<String, Object> m = new HashMap<String, Object>();
+		m.put("success", true);
+		m.put("value", mainService.listSchools());
+		return m;
 	}
 }

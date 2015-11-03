@@ -218,8 +218,18 @@ $(document).ready(function(){
    });
  	
  	$(".send").bind("click",function(){
+ 		if($("#sendContent").val().trim() == "")
+ 			return;
  		sendMessage($("#sendContent").val());
  	});
+ 	
+ 	$("#sendContent").keyup(function(e){
+ 		if(e.keyCode==13){
+ 			if($("#sendContent").val().trim() == "")
+ 	 			return;
+ 	 		sendMessage($("#sendContent").val());
+ 		}
+ 	}); 
  	
  	loadGreaterInfo();
 });

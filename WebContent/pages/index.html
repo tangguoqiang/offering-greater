@@ -1,0 +1,35 @@
+<div class="banner">
+	<div id="slides">
+		<ul class="bxslider">
+			 <li><img src="images/1-offering-bg1.png" /></li>
+			 <li><img src="images/1-offering-bg2.png"/></li>
+			 <li><img src="images/1-offering-bg3.png"/></li>
+		</ul>
+	</div>
+</div>
+<div class="content">
+	<div class="wrap kouhao"></div>
+	<div class="line"></div>
+	<div class="companyinfo"></div>
+	<div class="waitforyou"></div>
+	<div class="danalist"></div>
+	<a  href="javascript:void(0);" onclick="join();" class="join"></a>
+	<!-- <div class="shareex"></div> -->
+</div>
+<script type="text/javascript">
+$('.bxslider').bxSlider({
+	  auto: true
+});
+
+function join(){
+	if(userName == null || userName == "null"){
+		showDialog(1);
+	}else{
+		if(USER_GREATER == userType){
+			$("#mainDiv").load("pages/activity.html");
+		}else{
+			$("#mainDiv").load("pages/greater.html");
+		}
+	}
+}
+</script>

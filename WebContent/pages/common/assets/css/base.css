@@ -49,7 +49,7 @@ div{display: block;}
     border-radius: 50%;
     color: #fecb18;
 }
-.header{width: 100%;z-index: 100;position: absolute;top:0;}
+.header{width: 100%;z-index: 100;position: absolute;top:0;height: 8%;}
 .headerfix{position: fixed;background:#ffffff; moz-box-shadow:2px 2px 5px #333333; -webkit-box-shadow:2px 2px 5px #333333; box-shadow:2px 2px 5px #333333;}
 .logo{margin: 14px 0 10px 0;float: left;background-image: url('../images/logo.png');background-repeat: no-repeat;width: 151px;height:38px;}
 .userinfo{float: right;margin-top: 19px;}
@@ -76,26 +76,26 @@ div{display: block;}
 .join{cursor: pointer;width: 262px; height:48px;margin: 80px auto 20px auto;zoom: 1;background-image: url('../images/join.png');background-repeat: no-repeat;display:block}
 .shareex{width: 115px; height:15px;margin: 0px auto 55px auto;zoom: 1;background-image: url('../images/share_ex.png');background-repeat: no-repeat;}
 .mask {position: absolute; top: 0px; filter: alpha(opacity=80); background-color: #000;  z-index: 1002; left: 0px;  opacity:0.8; -moz-opacity:0.8;display: none;} 
-.model{ width:285px; height:540px; text-align:center;	background-color:#FFFFFF;}
+.model-mine{ width:285px; height:540px; text-align:center;	background-color:#FFFFFF;}
 .label-account{background-image: url('../images/account.png');background-repeat: no-repeat;width: 13px;height: 15px;}
 .label-phone{background-image: url('../images/phone.png');background-repeat: no-repeat;width: 13px;height: 15px;}
 .label-captcha{background-image: url('../images/CAPTCHA.png');background-repeat: no-repeat;width: 15px;height: 15px;}
 .label-password{background-image: url('../images/password.png');background-repeat: no-repeat;width: 15px;height: 15px;}
-.model p{  position: relative;margin: 0;line-height: 40px;height: 40px;font-size: 13px;}
-.model label{display: block;position: absolute;  top: 12px;left: 25px;}
-.model input{border-top:0px ;border-left:0px ;border-right:0px ;width:220px;padding-left: 30px;height:25px;font-size: 13px;}
-.model .close{position: absolute;background-image: url('../images/delete.png');background-repeat: no-repeat;width: 29px;height: 29px;  right: -40px;top:-30px;cursor: pointer;}
-.model .dialogtitle{position: relative;background-image: url('../images/regidter_bg.png');width:285px;height: 164px; }
-.model .dialogtitle .logo{float: left;margin-top:46px; margin-left: 65px;background-image: url("../images/logo.png");background-repeat: no-repeat; height: 38px;width: 151px; }
-.model .dialogtitle .irrow{position: absolute;bottom:0px;background-image: url('../images/irrow.png');background-repeat: no-repeat;width:25px;height:9px;left: 40px;}
-.model .loginbtn{position: absolute;bottom: 10px;left: 40px;cursor: pointer;}
-.model .registerbtn{position: absolute;bottom: 10px;right: 40px;cursor: pointer;}
-.model .loginerror{color:#f00;}
-.model .regerror{color:#f00;}
-.model .button{margin:30px auto 66px auto;background-image: url('../images/button3.png');background-repeat: no-repeat;width: 224px;height: 25px;display: block;color: #fff;font-size: 14px;}
-.model .button:hover{color:#fff}
-#getcaptcha{ color:#fecb18;position: absolute;right: 0;width: 100px;}
-.otherlogin{width:267px;height:15px;margin:0 auto;background-image: url('../images/otherlogin.png');background-repeat: no-repeat;}
+.model-mine p{  position: relative;margin: 0;line-height: 40px;height: 40px;font-size: 13px;}
+.model-mine label{display: block;position: absolute;  top: 12px;left: 25px;}
+.model-mine input{border-top:0px ;border-left:0px ;border-right:0px ;width:220px;padding-left: 30px;height:40px;font-size: 13px;}
+.model-mine .close{position: absolute;background-image: url('../images/delete.png');background-repeat: no-repeat;width: 29px;height: 29px;  right: -40px;top:-30px;cursor: pointer;}
+.model-mine .dialogtitle{position: relative;background-image: url('../images/regidter_bg.png');width:285px;height: 164px; }
+.model-mine .dialogtitle .logo{float: left;margin-top:46px; margin-left: 65px;background-image: url("../images/logo.png");background-repeat: no-repeat; height: 38px;width: 151px; }
+.model-mine .dialogtitle .irrow{position: absolute;bottom:0px;background-image: url('../images/irrow.png');background-repeat: no-repeat;width:25px;height:9px;left: 40px;}
+.model-mine .loginbtn{position: absolute;bottom: 10px;left: 40px;cursor: pointer;}
+.model-mine .registerbtn{position: absolute;bottom: 10px;right: 40px;cursor: pointer;}
+.model-mine .loginerror{color:#f00;}
+.model-mine .regerror{color:#f00;}
+.model-mine .button{margin:30px auto 66px auto;background-image: url('../images/button3.png');background-repeat: no-repeat;width: 224px;height: 25px;display: block;color: #fff;font-size: 14px;}
+.model-mine .button:hover{color:#fff}
+/* #getcaptcha{ color:#fecb18;position: absolute;right: 0;width: 100px;} */
+.otherlogin{width:260px;height:15px;margin:0 auto;background-image: url('../images/otherlogin.png');background-repeat: no-repeat;}
 .otherlist{width:207px;height: 35px;margin: 26px auto;background-image: url('../images/another_register.png');background-repeat: no-repeat; }
 .logintype{float: left;margin-right: 52px}
 .qq{width:29px;height:31px;background-image: url('../images/qq.png');background-repeat: no-repeat;}
@@ -112,16 +112,7 @@ div{display: block;}
 .fill .msg{color:#f00; display:none;text-align:center; heigth: 30px; line-height:30px;}
 .button2{cursor: pointer;margin:30px auto 50px auto;background-image: url('../images/button.png');background-repeat: no-repeat;width: 261px;height: 48px;display: block;color: #fff;  font-size: 18px;text-align: center;line-height: 44px;}
 .button2:hover{color:#fff}
-.activityheaderbg{background-color:#ffffff;}
-.activitycontent{top: 100px; position: relative;background-color:#ededeb;text-align: center; margin-bottom: 30px;min-height: 600px;}
-.activitycontent .left{width: 285px;float: left;}
-.activitycontent .right{float: right;width:915px;}
-.activitycontent .right li{width: 285px;height: 180px;float: left;margin-left: 20px;position: relative;margin-bottom: 20px;}
-.baseinfo {background: #fff;padding-top: 20px;padding-bottom: 10px;}
-.baseinfo .name{font-size: 16px;}
-.baseinfo p{font-size: 13px; line-height: 30px;height: 30px;}
-.work {text-align: left;margin-top:20px;background: #fff;padding: 20px 0px 10px 10px;}
-.work p{font-size: 13px; line-height: 30px;}
+
 .activitycontent .right .title{margin-left:10px;color:#fff;position: absolute;bottom: 28px;font-size: 14px;}
 .activitycontent .right .info{margin-left:10px;color:#fff;position: absolute;bottom: 10px;}
 .activitycontent .right .info .time{ float: right;color:#F0CC14;  margin-left: 15px;}
@@ -134,13 +125,14 @@ div{display: block;}
 .model2 .dialogcontent .dialogtitle{position: relative;z-index: 90;}
 .model2 p{ position: relative;margin: 0;line-height: 44px;height: 44px;font-size: 13px;}
 .model2 input{border-top:0px ;border-left:0px ;border-right:0px ;width:253px;height:25px;font-size: 13px;}
+.model2 select{border-top:0px ;border-left:0px ;border-right:0px;border-bottom:1px;width:100%;height:25px;font-size: 13px;text-align: right;}
 .model2 textarea{border:0px ;width:253px;height:100px;font-size: 13px;resize: none;}
 .model2 .dialogtitle .down{position: absolute;right:20px;bottom:20px;background-image: url('../images/down-icon.png');background-repeat: no-repeat; width: 10px;height: 6px; cursor: pointer;}
 .model2 .activity-tpl-list{position: absolute;z-index: 80;background:#e4e4e4;top:0px;display:none;}
 .model2 .activity-tpl-list ul li {float:left;cursor: pointer;}
 .model2 .activity-tpl-list ul .first{ margin: 0 6px 1px 4px;}
 .model2 .activity-tpl-list .up{float:left;margin:3px auto;position: relative; left: -10px;background-image: url('../images/up-icon.png');background-repeat: no-repeat; width: 16px;height: 16px; cursor: pointer;}
-.model2 .send-activity{background-image: url('../images/circle.png');background-repeat: no-repeat; width: 52px;height: 52px;  margin-top: 120px;margin-left: 115px;padding-top: 16px;font-size: 14px;cursor: pointer;}
+.model2 .send-activity{background-image: url('../images/circle.png');background-repeat: no-repeat; width: 52px;height: 52px;  margin-top: 108px;margin-left: 115px;padding-top: 16px;font-size: 14px;cursor: pointer;}
 .model2 .close2{position: absolute;background-image: url('../images/delete.png');background-repeat: no-repeat;width: 29px;height: 29px;  right: -40px;top:15px;cursor: pointer;}
 .talkcontent { margin-top: 44px;position: relative;top: 44px;}
 .talkcontent .left{width: 285px;float: left;margin-right: 25px}
@@ -194,3 +186,104 @@ div{display: block;}
 #tinymask{position:absolute; display:none; top:0; left:0; height:100%; width:100%; background:#000000; z-index:1500;}
 #tinycontent{background:#ffffff; }
 .footer {width:100%; background:url(../images/down.png);height: 335px;}
+
+.logo{float: left;margin-top:46px; margin-left: 65px;background-image: url("../images/logo.png");background-repeat: no-repeat; height: 38px;width: 151px; }
+.tab-content p{  position: relative;margin: 0;line-height: 40px;height: 40px;font-size: 13px;}
+.tab-content label{display: block;position: absolute;  top: 12px;left: 25px;}
+.tab-content input{border-top:0px ;border-left:0px ;border-right:0px ;width:240px;padding-left: 50px;height:40px;font-size: 13px;}
+.loginerror{color:#f00;}
+.regerror{color:#f00;}
+.tab-content .button{margin:30px auto 66px auto;background-image: url('../images/button3.png');background-repeat: no-repeat;width: 224px;height: 25px;display: block;color: #fff;font-size: 14px;text-align: center;}
+.tab-content .button:hover{color:#fff}
+
+
+.list-group-item{
+	cursor: pointer;
+	width: 100%;
+	border: none;
+	text-align: center;
+	padding-left: 0px;
+	font-size: 1.1em;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	font-weight: bolder;
+}
+
+.list-group-item:HOVER,.list-group-item:FOCUS,.active-mine{
+	cursor: pointer;
+	background-color: #dddddd;
+}
+
+.active-mine{
+	background-color: #ffcd19 !important;
+}
+
+.add-topic{
+	float: right;
+	cursor: pointer;
+}
+
+.panel-heading-mine {
+	padding: 10px 15px;
+	border-bottom:2px;
+	font-size: 1.4em;
+	color: #949391;
+	text-align: left;
+	background-color:#ffffff;
+}
+
+form label{
+	color: #606060 !important;
+	font-weight: normal !important;
+	font-size: 16px !important;
+}
+
+form input{
+	text-align: right;
+}
+
+form select{
+	text-align: right;
+}
+
+/* Apply these styles only when #preview-pane has
+   been placed within the Jcrop widget */
+.jcrop-holder #preview-pane {
+  display: block;
+  position: absolute;
+  z-index: 2000;
+  top: 10px;
+  right: -280px;
+  padding: 6px;
+  border: 1px rgba(0,0,0,.4) solid;
+  background-color: white;
+
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+
+  -webkit-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* The Javascript code will set the aspect ratio of the crop
+   area based on the size of the thumbnail preview,
+   specified here */
+#preview-pane .preview-container {
+	border-radius: 50px;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+}
+
+/* 活动维护样式 */
+.activityheaderbg{background-color:#ffffff;}
+.activitycontent{top: 100px; position: relative;background-color:#ededeb;text-align: center; margin-bottom: 30px;min-height: 600px;}
+.activitycontent .left{width: 285px;float: left;}
+.activitycontent .right{float: right;width:915px;}
+.activitycontent .right li{width: 285px;height: 180px;float: left;margin-left: 20px;position: relative;margin-bottom: 20px;}
+.baseinfo {background: #fff;padding-top: 20px;padding-bottom: 10px;}
+.baseinfo .name{font-size: 16px; margin-bottom: 8px;}
+.baseinfo p{font-size: 13px;}
+.work {text-align: left;margin-top:20px;background: #fff;}

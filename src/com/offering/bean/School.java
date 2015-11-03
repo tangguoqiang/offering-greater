@@ -10,7 +10,7 @@ public class School implements Serializable{
 	private static final long serialVersionUID = 6767828762920792901L;
 	private String id;
 	private String name;
-	private String province;
+//	private String province;
 //	private String city;
 //	private String orderNum;
 	
@@ -25,11 +25,5 @@ public class School implements Serializable{
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public String getProvince() {
-		return province;
-	}
-	public void setProvince(String province) {
-		this.province = province;
 	}
 }

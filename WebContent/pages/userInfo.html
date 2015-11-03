@@ -1,0 +1,629 @@
+<div  class="activitycontent" style="padding-left: 10%;top: 44px;">
+	<div style="float: left;">
+		<div class="panel panel-default"  style="width: 285px;">
+		  	<div class="panel-heading-mine">个人设置</div>
+		  	<ul id="infoLi" class="list-group panel-body" style="border: none;padding: 0px 0px 0px 0px">
+			  <li id="baseInfoLi" class="list-group-item">基础信息</li>
+			  <li id="onlineTimeLi" class="list-group-item">闲暇时间</li>
+			  <li id="tagsLi" class="list-group-item">个性标签</li>
+			  <li id="introduceLi" class="list-group-item">个人介绍</li>
+			</ul>
+		</div>
+		<div class="panel panel-default"  style="width: 285px;">
+			<div class="panel-heading-mine">我的话题<img class="add-topic" src="images/add_pre.png" onclick="addTopic();"></div>
+		    <ul id="topicUl" class="list-group panel-body" style="border: none;padding: 0px 0px 0px 0px;height: 295px;overflow: auto;">
+			</ul>
+		</div>
+	</div>
+	<div  style="float: left;padding-left:25px;width: 70%;">
+		<div class="panel panel-default" style="height: 585px;">
+			<div id="panelTitle" class="panel-heading-mine"></div>
+			<div id="preview-pane" style="margin: 2% auto 2% 340px;">
+				<div class="preview-container">
+					<img id="icon_greater" class="jcrop-preview" style="width: 100px;height: 100px;cursor: pointer;" src="images/upload_image.jpg" onclick="uploadIcon();"/>
+				</div>
+			</div>
+			<form id="baseInfoForm" class="form-horizontal" style="padding-left: 60px;padding-right: 270px;">
+				 <div class="form-group">
+				   <label for="nickname" class="col-sm-2 control-label">姓&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp名</label>
+				   <div class="col-sm-10">
+				     <input style="text-align: right;" required="required" class="form-control" id="nickname" placeholder="您的姓名">
+				   </div>
+				 </div>
+				 <div class="form-group">
+				     <label for="company" class="col-sm-2 control-label">公&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp司</label>
+				     <div class="col-sm-10">
+				       <input class="form-control" required="required" id="company" placeholder="您的公司">
+				     </div>
+				  </div>
+				  <div class="form-group">
+				     <label for="post" class="col-sm-2 control-label">职&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp位</label>
+				     <div class="col-sm-10">
+				       <input class="form-control" required="required" id="post" placeholder="您的职位">
+				     </div>
+				  </div>
+				 <div class="form-group">
+				     <label for="industry" class="col-sm-2 control-label">行&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp业</label>
+				     <div class="col-sm-10">
+				       <select class="form-control" id="industry" style="text-align: right;">
+						  <option value="0">互联网</option>
+						  <option value="1">金融</option>
+						  <option value="2">快消品</option>
+						  <option value="3">广告</option>
+						  <option value="4">咨询</option>
+						  <option value="5">会计事务所</option>
+						  <option value="6">其他</option>
+						</select>
+				     </div>
+				  </div>
+				  <div class="form-group">
+				     <label for="schoolId" class="col-sm-2 control-label">大&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp学</label>
+				     <div class="col-sm-10">
+					     <div class="input-group">
+	                        <input type="text" class="form-control" id="school">
+	                        <div class="input-group-btn">
+	                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+	                                <span class="caret"></span>
+	                            </button>
+	                            <ul class="dropdown-menu dropdown-menu-right" role="menu">
+	                            </ul>
+	                        </div>
+	                        <!-- /btn-group -->
+	                    </div>
+                    </div>
+				  </div>
+				  <div class="form-group">
+				     <label for="workYears" class="col-sm-2 control-label">工作经验</label>
+				     <div class="col-sm-10">
+				       <select class="form-control" id="workYears">
+						  <option value="1">一年</option>
+						  <option value="2">两年</option>
+						  <option value="3">三年</option>
+						  <option value="4">四年</option>
+						  <option value="5">五年</option>
+						  <option value="6">五年以上</option>
+						</select>
+				     </div>
+				  </div>
+				  <div id="onlineTime" class="form-group" style="display: none;">
+				     <label for="online_startTime" class="col-sm-2 control-label">空闲时间</label>
+				     <div class="col-sm-4" style="width: 37.5%;">
+				       <select class="form-control" id="online_startTime">
+						  <option>08:00</option>
+						  <option>09:00</option>
+						  <option>10:00</option>
+						  <option>11:00</option>
+						  <option>12:00</option>
+						  <option>13:00</option>
+						  <option>14:00</option>
+						  <option>15:00</option>
+						  <option>16:00</option>
+						  <option>17:00</option>
+						  <option>18:00</option>
+						  <option>19:00</option>
+						  <option>20:00</option>
+						  <option>21:00</option>
+						  <option>22:00</option>
+						  <option>23:00</option>
+						  <option>24:00</option>
+						</select>
+				     </div>
+				     <label for="online_endTime" class="col-sm-1 control-label">至</label>
+				     <div class="col-sm-4" style="width: 37.5%;">
+				       <select class="form-control" id="online_endTime">
+						  <option>08:00</option>
+						  <option>09:00</option>
+						  <option>10:00</option>
+						  <option>11:00</option>
+						  <option>12:00</option>
+						  <option>13:00</option>
+						  <option>14:00</option>
+						  <option>15:00</option>
+						  <option>16:00</option>
+						  <option>17:00</option>
+						  <option>18:00</option>
+						  <option>19:00</option>
+						  <option>20:00</option>
+						  <option>21:00</option>
+						  <option>22:00</option>
+						  <option>23:00</option>
+						  <option>24:00</option>
+						</select>
+				     </div>
+				  </div>
+				  <div id="tagsDiv" class="form-group" style="display: none;">
+				     <label for="tags" class="col-sm-2 control-label">个性标签</label>
+				     <div class="col-sm-10">
+				       <textarea class="form-control" id="tags" placeholder="您的个性标签,多个之间以逗号隔开" rows="4"/>
+				     </div>
+				  </div>
+				  <div id="introduceDiv" class="form-group" style="display: none;">
+				     <label for="introduce" class="col-sm-2 control-label">个人简介</label>
+				     <div class="col-sm-10">
+				       <textarea class="form-control" id="introduce" required="required" placeholder="您的个人简介(介绍自己,怎么风趣怎么来,幽默的人最有魅力)" rows="4"/>
+				     </div>
+				  </div>
+				  <div id="btnDiv" class="form-group">
+				    <div class="col-sm-offset-5 col-sm-5">
+				      <button id="updateGreater" type="button" class="btn" style="background-color: #ffcd19;width: 100px;">保存</button>
+				      <button id="greater_warning" style="visibility: hidden;" type="button" class="btn btn-primary" data-container="body" data-placement="right" data-content=""></button>
+				    </div>
+				  </div>
+				</form>
+				<form id="topicInfoForm" class="form-horizontal" style="padding-left: 60px;padding-right: 270px;display: none;">
+					<div class="form-group">
+					    <label for="title" class="col-sm-2 control-label">标&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp题</label>
+					    <div class="col-sm-10">
+					       <input type="hidden" id="topicId">
+					       <input style="text-align: left;" class="form-control" required="required" id="title" placeholder="">
+					    </div>
+					</div>
+					<div class="form-group">
+					    <label for="content" class="col-sm-2 control-label">话题描述</label>
+					    <div class="col-sm-10">
+					      <textarea class="form-control" id="content" required="required" placeholder="" rows="4"/>
+					    </div>
+					</div>
+					<div id="btnDiv" class="form-group">
+					    <div class="col-sm-offset-4 col-sm-7">
+					      <button id="saveTopic" type="button" class="btn" style="background-color: #ffcd19;width: 100px;">保存</button>
+					      <button id="topic_warning" style="visibility: hidden;" type="button" class="btn btn-primary" data-container="body" data-placement="right" data-content=""></button>
+					      <button id="delTopic" type="button" class="btn" style="background-color: #ffcd19;width: 100px;">删除</button>
+					    </div>
+					</div>
+				</form>
+			</div>
+		</div>
+		
+		<div class="modal fade" id="uploadModal">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h4 class="modal-title">附件上传</h4>
+		      </div>
+		      <div class="modal-body" >
+		        <form class="form-horizontal">
+				  <div class="form-group">
+				    <div class="col-sm-9">
+					    <div class="col-sm-9">
+					      	<input type="file" class="form-control" id="fileToUpload" name="fileToUpload">
+					    	<input type="hidden" id="x" name="x" value="0"/>  
+				             <input type="hidden" id="y" name="y" value="0"/>  
+				             <input type="hidden" id="w" name="w" value="300"/>  
+				             <input type="hidden" id="h" name="h" value="300"/> 
+					    </div>
+				    </div>
+				   </div>
+				   <div class="form-group" style="height: 300px;">
+				    <div class="col-sm-8">
+					   <div class="jc-demo-box">
+	  						<img style="width: 300px;height: 300px;" src="" id="uploadImage" alt="图片区域"/>
+						</div>
+				    </div>
+				    <div class="col-sm-4">
+				    	<div id="preview-pane">
+						    <div class="preview-container">
+						      	<img  id="previewImage" style="width: 100px;height: 100px;" src="" class="jcrop-preview" alt=""/>
+						   	</div>
+						</div>
+					</div>
+				  </div>
+				</form>
+		      </div>
+		      <div class="modal-footer">
+		        <button id="okBtn" type="button" class="btn btn-primary">确定</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+</div>
+<script type="text/javascript">
+/* $.ajax({
+	type:'post',
+	url:baseUrl + '/listSchools',
+	data:{
+	},
+	dataType:'json',
+	success:function(data){
+		$('#schoolId').append('<option value="all" selected="selected">请选择学校</option>');
+		var schools = data.schools;
+		for(var i=0,len=schools.length;i<len;i++){
+			$("#schoolId").append("<option value='"+schools[i].id+"'>"+schools[i].name+"</option>");
+		}
+		$("#schoolId").searchSelect({emptyMessage: 'No options found..'});
+	},
+	error:function(textStatus,errorThrown){
+	}
+}); */
+
+/**
+ * 不显示下拉按钮
+ */
+$("#school").bsSuggest({
+    url: baseUrl + '/listSchools',
+    /* effectiveFields: ["id","name"],
+    searchFields: [ "name"],
+    effectiveFieldsAlias:{id: "序号",name: "学校"}, */
+    showBtn: false,
+    idField: "id",
+    keyField: "name"
+}).on('onDataRequestSuccess', function (e, result) {
+    console.log('onDataRequestSuccess: ', result);
+}).on('onSetSelectValue', function (e, keyword) {
+    console.log('onSetSelectValue: ', keyword);
+}).on('onUnsetSelectValue', function (e) {
+    console.log("onUnsetSelectValue");
+});
+
+$("#school").click().focus();
+
+
+$(".form-horizontal input").on('blur',function(){
+	if($(this).attr("required") == "required")
+	{
+		if($(this).val().trim() == ""){
+			$(this).parent().addClass("has-error");
+		}
+		else{
+			$(this).parent().removeClass("has-error");
+		}
+	}else{
+		
+	}
+});
+
+$("#infoLi li").on("click",function(){
+	if($(this).hasClass("active-mine"))
+		return;
+	$("#panelTitle").html("个人信息");
+	$("#baseInfoForm").show();
+	$("#topicInfoForm").hide();
+	$("#topicUl .active-mine").removeClass("active-mine");
+	$("#infoLi .active-mine").removeClass("active-mine");
+	$(this).addClass("active-mine");
+	var liId = $(this).attr("id");
+	
+	$.each($("#baseInfoForm>div"), function(i,el) {
+		var divId = $(el).attr("id");
+		if(divId=="btnDiv")
+			return;
+		if(liId == "baseInfoLi"){
+			$("#preview-pane").show();
+			if(divId == "onlineTime" || divId=="tagsDiv" || divId=="introduceDiv"){
+				$(el).hide();
+			}
+			else{
+				$(el).show();
+			}
+		}else if(liId == "onlineTimeLi"){
+			$("#preview-pane").hide();
+			if(divId == "onlineTime"){
+				$(el).show();
+			}
+			else{
+				$(el).hide();
+			}
+		}else if(liId == "tagsLi"){
+			$("#preview-pane").hide();
+			if(divId=="tagsDiv"){
+				$(el).show();
+			}
+			else{
+				$(el).hide();
+			}
+		}else if(liId == "introduceLi"){
+			$("#preview-pane").hide();
+			if(divId=="introduceDiv"){
+				$(el).show();
+			}else{
+				$(el).hide();
+			}
+		}
+	});
+	
+	$.ajax({
+		type:'post',
+		url:baseUrl + '/getGreaterInfo',
+		data:{
+			id : userId
+		},
+		dataType:'json',
+		success:function(data){
+			$("#icon_greater").attr("src",serverUrl+data.greater.url);
+			putJsonToForm("baseInfoForm",data.greater);
+			$("#school").attr("data-id",data.greater.schoolId);
+			$("#school").val(data.greater.schoolName);
+			setTimeout(function(){
+				$("#nickname").click().focus();
+			}, 100)
+		},
+		error:function(textStatus,errorThrown){
+		}
+	});
+});
+
+$("#infoLi li:eq(0)").trigger("click");
+loadTopics();
+
+function loadTopics(){
+	//加载话题信息
+	$.ajax({
+		type:'post',
+		url:baseUrl + '/listTopics',
+		data:{
+			id : userId
+		},
+		dataType:'json',
+		success:function(data){
+			$("#topicUl").empty();
+			var topics = data.topics;
+			for(var i=0,len=topics.length;i<len;i++){
+				$("#topicUl").append("<li id='" +topics[i].id + "' onclick='viewTopic(this);'" 
+				+ "class=\"list-group-item\" style=\"text-align: left;\">"
+				+topics[i].title+"</li>");
+			}
+		},
+		error:function(textStatus,errorThrown){
+		}
+	});
+}
+
+
+function addTopic(){
+	$("#panelTitle").html("话题");
+	$("#baseInfoForm").hide();
+	$("#topicInfoForm").show();
+	$("#preview-pane").hide();
+	$("#topicUl .active-mine").removeClass("active-mine");
+	$("#infoLi .active-mine").removeClass("active-mine");
+	$("#topicId").val("");
+	$("#title").val("");
+	$("#content").val("");
+	
+	$("#delTopic").hide();
+	
+	$.each($("#topicInfoForm input,#topicInfoForm textarea"), function(i,el) {
+		$(el).parent().removeClass("has-error");
+	});
+}
+
+function viewTopic(el){
+	if($(el).hasClass("active-mine"))
+		return;
+	$("#panelTitle").html("话题");
+	$("#baseInfoForm").hide();
+	$("#topicInfoForm").show();
+	$("#preview-pane").hide();
+	$("#topicUl .active-mine").removeClass("active-mine");
+	$("#infoLi .active-mine").removeClass("active-mine");
+	$(el).addClass("active-mine");
+	$("#delTopic").show();
+	
+	$.each($("#topicInfoForm input,#topicInfoForm textarea"), function(i,el) {
+		$(el).parent().removeClass("has-error");
+	});
+	
+	$.ajax({
+		type:'post',
+		url:baseUrl + '/getTopicInfo',
+		data:{
+			id : $(el).attr("id")
+		},
+		dataType:'json',
+		success:function(data){
+			putJsonToForm("topicInfoForm",data.topic);
+			$("#topicId").val($(el).attr("id"));
+		},
+		error:function(textStatus,errorThrown){
+		}
+	});
+}
+
+$('#updateGreater').on('blur',function(e){
+	$('#greater_warning').attr("data-content","");
+	$('#greater_warning').popover("hide");
+});
+
+$('#updateGreater').on('click',function(e){
+	e.preventDefault(); 
+	var image = $("#icon_greater").attr("src");
+	if(image == '' || image == "images/upload_image.jpg"){
+		msg = "请选择上传头像";
+		$('#greater_warning').attr("data-content",msg);
+		$('#greater_warning').popover("show");
+		return false;
+	}
+	
+	var res = validateForm("baseInfoForm");
+	if(!res.isPass){
+		$('#greater_warning').attr("data-content",res.msg);
+		$('#greater_warning').popover("show");
+		return false;
+	}
+	
+	var postData = parseFormToJson("baseInfoForm");
+	postData.id = userId;
+	if($("#school").attr("data-id") == ""){
+		$('#greater_warning').attr("data-content","请选择正确的学校");
+		$('#greater_warning').popover("show");
+		return false;
+	}
+	postData.schoolId=$("#school").attr("data-id");
+	if(image.indexOf("offering") == -1){
+		postData.image = image;
+		postData.w = $("#w").val();
+		postData.h = $("#h").val();
+		postData.x = $("#x").val();
+		postData.y = $("#y").val();
+	}
+	
+	$.ajax({
+		type:'post',
+		url:baseUrl + '/updateGreater',
+		data:postData,
+		dataType:'json',
+		success:function(data){
+			
+		},
+		error:function(textStatus,errorThrown){
+		}
+	});
+});
+
+$('#saveTopic').on('blur',function(e){
+	$('#topic_warning').attr("data-content","");
+	$('#topic_warning').popover("hide");
+});
+
+$('#saveTopic').on('click',function(e){
+	e.preventDefault(); 
+	
+	var res = validateForm("topicInfoForm");
+	if(!res.isPass){
+		$('#topic_warning').attr("data-content",res.msg);
+		$('#topic_warning').popover("show");
+		return false;
+	}
+	
+	var postData = parseFormToJson("topicInfoForm");
+	postData.greaterId = userId;
+	postData.id = $("#topicId").val();
+	
+	$.ajax({
+		type:'post',
+		url:baseUrl + '/saveTopic',
+		data:postData,
+		dataType:'json',
+		success:function(data){
+			$("#topicId").val(data.id);
+			loadTopics();
+		},
+		error:function(textStatus,errorThrown){
+		}
+	});
+});
+
+$('#delTopic').on('click',function(e){
+	$.ajax({
+		type:'post',
+		url:baseUrl + '/delTopic',
+		data:{
+			id:$("#topicId").val()
+		},
+		dataType:'json',
+		success:function(data){
+			$("#topicId").val("");
+			$("#title").val("");
+			$("#content").val("");
+			
+			$("#delTopic").hide();
+			loadTopics();
+		},
+		error:function(textStatus,errorThrown){
+		}
+	});
+});
+
+function uploadIcon(){
+	$("#uploadModal").modal("show");
+	$('#fileToUpload').val("");
+	$(".jc-demo-box").empty();
+	$('.jc-demo-box').append("<img style=\"width: 30	0px;height: 300px;text-align: center;\" class=\"img-responsive\" src=\"\" id=\"uploadImage\" alt=\"图片区域\"/>");
+	$('#previewImage').attr("src","");
+}
+
+$('#fileToUpload').on('change', function(){
+	var fileSize = getFileSize(document.getElementById("fileToUpload"));
+	if(fileSize > 2*1024*1024)
+	{
+		$('#fileToUpload').val("");
+		$(".jc-demo-box").empty();
+		$('.jc-demo-box').append("<img style=\"width: 300px;height: 300px;text-align: center;\" class=\"img-responsive\" src=\"\" id=\"uploadImage\" alt=\"图片区域\"/>");
+		$('#previewImage').attr("src","");
+		alert("文件大小不能超过2M");
+		return;
+	}
+	
+	$("#x").val(0);  
+    $("#y").val(0);  
+    $("#w").val(300);  
+    $("#h").val(300);  
+		
+	var reader = new FileReader();
+	reader.onload = function(e) {
+		var xsize = $('#preview-pane .preview-container').width();
+		var ysize = $('#preview-pane .preview-container').height();
+		$(".jc-demo-box").empty();
+		$('.jc-demo-box').append("<img style=\"width: 300px;height: 300px;\" class=\"img-responsive\" src=\""+ e.target.result+"\" id=\"uploadImage\"/>");
+		$('#previewImage').attr("src",e.target.result);
+		$('#uploadImage').Jcrop({
+			  onChange: updatePreview,
+			  onSelect: updatePreview,
+			  aspectRatio: xsize / ysize
+			},function(){
+			  var bounds = this.getBounds();
+			  boundx = bounds[0];
+			  boundy = bounds[1];
+			  jcrop_api = this;
+			
+			  // Move the preview into the jcrop container for css positioning
+			  //$('#preview-pane').appendTo(jcrop_api.ui.holder);
+			}); 
+	}
+	reader.readAsDataURL(this.files[0]);
+	this.files = [];
+});
+
+$("#okBtn").bind("click",function(){
+	$("#uploadModal").modal("hide");
+	var pimg = $('#preview-pane .preview-container img');
+	$("#icon_greater").attr("src",$("#uploadImage").attr("src"));
+	$("#icon_greater").css({
+		width:pimg.css("width"),
+		height:pimg.css("height"),
+		marginLeft:pimg.css("marginLeft"),
+		marginTop:pimg.css("marginTop")
+	});
+});
+
+function updatePreview(c)
+{
+	$("#x").val(c.x);  
+    $("#y").val(c.y);  
+    $("#w").val(c.w);  
+    $("#h").val(c.h);  
+	var xsize = $('#preview-pane .preview-container').width();
+	var ysize = $('#preview-pane .preview-container').height();
+	var pimg = $('#preview-pane .preview-container img');
+  	if (parseInt(c.w) > 0)
+  	{
+    	var rx = xsize / c.w;
+    	var ry = ysize / c.h;
+
+    	pimg.css({
+      		width: Math.round(rx * boundx) + 'px',
+      		height: Math.round(ry * boundy) + 'px',
+      		marginLeft: '-' + Math.round(rx * c.x) + 'px',
+      		marginTop: '-' + Math.round(ry * c.y) + 'px'
+    	});
+  }
+}
+
+//获取获取文件大小
+function getFileSize(fileObj){　　
+	var  Sys = {};
+	if(navigator.userAgent.indexOf("MSIE")>0)
+		Sys.ie=true;
+	    
+	if(navigator.userAgent.indexOf("Firefox")>0)
+		Sys.firefox=true;
+	var filesize =0;
+	if(Sys.firefox){
+		filesize = fileObj.files[0].size;
+	}else{
+		filesize = fileObj.files[0].size;
+	}
+	return filesize;
+}
+
+</script>

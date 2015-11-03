@@ -96,6 +96,10 @@ public class GloabConstant {
 	 * 系统字典分组-年级
 	 */
 	public final static String GROUP_GRADE = "grade";
+	/**
+	 * 系统字典分组-行业
+	 */
+	public final static String GROUP_INDUSTRY = "industry";
 	
 	
 	/**

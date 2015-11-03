@@ -1,41 +1,13 @@
-<%@page import="com.offering.common.constant.GloabConstant"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<%@ include file="common/include.jsp"%>
-<%if(userName == null){
-	response.sendRedirect(baseUrl);
-}%>
-</head>
-<body style="background: #ededeb;">
-	<div class="header activityheaderbg" id="header">
-		<div class="wrap">
-			<a class="logo" href="<%=baseUrl%>"></a>
-			<div class="userinfo">
-				<ul>
-					<li>欢迎回来，<span id="showusername"><%if (userName != null ){%><%=userName%><%}%></span> <a href="javascript:void(0);" onClick="logout();">退出</a></li>
-				</ul>
-			</div>
-			<div class="clear"></div>
-		</div>
-	</div>
-	<div class="activitycontent">
+<div class="activitycontent" style="background: #ededeb;top:44px;">
 		<div class="wrap">
 			<div class="left">
 				<div id="baseinfo" class="baseinfo">
-					<img id="icon" style="margin:0px auto 20px auto;height: 100px;width: 100px;border-radius: 50px;"></img>
+					<img id="icon_greater" style="margin:0px auto 20px auto;height: 100px;width: 100px;border-radius: 50px;"></img>
 					<div id="name" class="name"></div>
-					<!-- <p id="company"></p>
-					<p id="post"></p> -->
 				</div>
 				<div id="work" class="work">
-					<div class="title">工作经历</div>
-				</div>
-				<div id="job" class="work">
-					<div class="title">心得</div>
+					<div class="panel-heading-mine">个人描述</div>
+					<div style="padding: 10px 15px;" id="introduce"></div>
 				</div>
 			</div>
 			<div class="right">
@@ -49,28 +21,34 @@
 				</ul>
 			</div>
 		</div>
-	</div>
-	<div class="footer"></div>
+</div>
 <script  type="text/x-jquery-tmpl" id="dialog">
 	<div class="model2">
 		<div class="close2"></div>
 		<div class="dialogcontent">
 			<div class="dialogtitle">
-				<img src="<%=serverUrl%>/download/userImages/1.jpg" width="100%" id="activitybg"/>
+				<img src="images/1.jpg" width="100%" id="activitybg"/>
 				<div class="down"></div>
 			</div>
 			<div class="activity-tpl-list">
 				<ul>
-					<li class="item first" rel="/download/userImages/1.jpg"><img src="<%=serverUrl%>/download/userImages/1.jpg" width="135" height="75"/></li>
-					<li class="item" rel="/download/userImages/2.jpg"><img src="<%=serverUrl%>/download/userImages/2.jpg" width="135" height="75"/></li>
-					<li class="item first" rel="/download/userImages/4.jpg"><img src="<%=serverUrl%>/download/userImages/4.jpg" width="135" height="75"/></li>
-					<li class="item" rel="/download/userImages/5.jpg"><img src="<%=serverUrl%>/download/userImages/5.jpg" width="135" height="75"/></li>
+					<li class="item first" rel="images/1.jpg"><img src="images/1.jpg" width="135" height="75"/></li>
+					<li class="item" rel="images/2.jpg"><img src="images/2.jpg" width="135" height="75"/></li>
+					<li class="item first" rel="images/4.jpg"><img src="images/4.jpg" width="135" height="75"/></li>
+					<li class="item" rel="images/5.jpg"><img src="images/5.jpg" width="135" height="75"/></li>
 				</ul>
 				<div class="up"></div>
 			</div>
 			<div class="" style="margin-top:6px;">
 				<p>
 					<input id="title" name="title" type="text" class="input" autocomplete="off" placeholder="分享主题"></input>
+				</p>
+				<p>
+					<select id="type">
+				  		<option value="0">求职分享会</option>
+				  		<option value="1">线下宣讲会</option>
+				  		<option value="2">线上宣讲会</option>
+					</select>
 				</p>
 				<p>
 					<input id="time" name="time" type="text" class="input" autocomplete="off" placeholder="时间"></input>
@@ -82,7 +60,7 @@
 					<textarea id="remark" placeholder="主题说明"></textarea>
 				</p>
 			</div>
-			<input id="url" type="hide" value="/download/userImages/1.jpg">
+			<input id="url" type="hidden" value="images/1.jpg">
 			<div id="releaseBtn" class="send-activity">发布</div>
 		</div>
 	</div>
@@ -107,85 +85,31 @@ Date.prototype.format = function(fmt)
   return fmt;   
 }; 
 
-var activityId="";
-$(document).ready(function(){
-	var leftheight =$('.left').height();
-	var rightheight =$('.right').height();
-	var height = leftheight>rightheight ? leftheight : rightheight;
-	$('.activitycontent').css({'height': height+20});
-
-	$('.add-activity-btn').bind('click',function(){
-		var html = $('#dialog').html();
-		TINY.box.show(html,0,0,0,1);
-		activityId="";
-		$("#title").val("");
-		$("#time").val("");
-		$("#address").val("");
-		$("#remark").val("");
-		setTimeout(function(){
-			 $("#time").datetimepicker({
-	            showSecond: true,
-	            timeFormat: 'hh:mm:ss',
-	            stepHour: 1,
-	            stepMinute: 1,
-	            stepSecond: 1
-	        });
-		},1000);
-	});
-	$('.close2').live('click',function(){
-		TINY.box.hide();
-	});
-	//发布活动
-	$('#releaseBtn').live('click',realeaseActivity);
-	loadGreaterInfo();
-	//加载活动数据
-	loadActivities();
-	 $(window).scroll(function () {
-       if($(window).scrollTop() > 0){
-    	   $("#header").addClass("headerfix");
-       }else{
-    	   $("#header").removeClass("headerfix");
-       }
-    });
-	 
-	$('.down').live('click',function(){
-		$('.activity-tpl-list').show();
-		$('.activity-tpl-list').stop().animate({top:"185px",speed: 800});
-	});
-	$('.up').live('click',function(){
-		$('.activity-tpl-list').stop().animate({top:"0px",speed: 800,});
-		setTimeout(function(){
-			$('.activity-tpl-list').hide();
-		},600);
-	});
-	
-	$('.item').live('click',function(){
-		var url = $(this).attr('rel');
-		$('#url').val(url);
-		$("#activitybg").attr('src', "<%=serverUrl%>"+url);
-		$('.activity-tpl-list').stop().animate({top:"0px",speed: 800});
-		setTimeout(function(){
-			$('.activity-tpl-list').hide();
-		},600);
-	});
-});
+loadGreaterInfo();
+//加载活动数据
+loadActivities();
 
 function loadGreaterInfo(){
 	$.ajax({
 		type:'post',
-		url:"<%=baseUrl%>"+'/greater/getGreaterInfo',
+		url:baseUrl+'/getGreaterInfo',
 		data:{
-			id:'<%=userId%>'
+			id:userId
 		},
 		dataType:'json',
 		success:function(data){
 			if(data == null)
 				return;
-			$("#icon").attr("src",serverUrl+data.url);
-			$("#name").text(data.nickname);
-			//$("#company").text(data.company);
-			//$("#post").text(data.post);
-			var tag = data.tags;
+			
+			var greater = data.greater;
+			$("#icon_greater").attr("src",serverUrl+greater.url);
+			$("#name").text(greater.nickname);
+			
+			$("#baseinfo").append("<p>"+greater.company+"</p>");
+			$("#baseinfo").append("<p>"+greater.post+"</p>");
+			$("#baseinfo").append("<p>"+greater.industryName+"</p>");
+			$("#baseinfo").append("<p>"+greater.schoolName+"</p>");
+			/* var tag = data.greater.tags;
 			if(tag != null)
 			{
 				var tags = tag.split(",");
@@ -193,10 +117,8 @@ function loadGreaterInfo(){
 				{
 					$("#baseinfo").append("<p>"+tags[i]+"</p>");
 				}
-			}
-			
-			$("#work").append("<p>"+data.experience.replace(/\\n/g,"<br>")+"</p>");
-			$("#job").append("<p>"+data.job.replace(/\\n/g,"<br>")+"</p>");
+			} */
+			$("#introduce").html(greater.introduce);
 		},
 		error:function(textStatus,errorThrown){
 		}
@@ -206,9 +128,9 @@ function loadGreaterInfo(){
 function loadActivities(){
 	$.ajax({
 		type:'post',
-		url:"<%=baseUrl%>"+'/activity/listActivities',
+		url:baseUrl+'/activity/listActivities',
 		data:{
-			createrId:'<%=userId%>'
+			createrId:userId
 		},
 		dataType:'json',
 		success:function(data){
@@ -221,7 +143,7 @@ function loadActivities(){
 			for(var i = 0,len = recs.length;i<len;i++)
 			{
 				rec=recs[i];
-				$("#activities").append("<li><img groupId=\""+rec.id+"\" status=\"" + rec.status
+				$("#activities").append("<li style=\"cursor:pointer;\"><img groupId=\""+rec.id+"\" status=\"" + rec.status
 						+"\" src=\""+serverUrl+rec.url+"\" width=\"285\" height=\"180\" onclick=\"openTalk(this)\"/>"
 						+(rec.status==3?"<div class=\"approve\"></div>":"")
 						+"<div class=\"title\">"+rec.title +"</div>"
@@ -234,18 +156,66 @@ function loadActivities(){
 	});
 }
 
-function realeaseActivity(){
+var activityId="";
+$('.add-activity-btn').on('click',function(){
+	var html = $('#dialog').html();
+	TINY.box.show(html,0,0,0,1);
+	activityId="";
+	$("#title").val("");
+	$("#time").val("");
+	$("#address").val("");
+	$("#remark").val("");
+	setTimeout(function(){
+		 $("#time").datetimepicker({
+            showSecond: true,
+            timeFormat: 'hh:mm:ss',
+            stepHour: 1,
+            stepMinute: 1,
+            stepSecond: 1
+        });
+	},1000);
+});
+
+$(document).on( "click", ".close2", function() {
+	TINY.box.hide();
+});
+
+$(document).on( "click", ".down", function() {
+	$('.activity-tpl-list').show();
+	$('.activity-tpl-list').stop().animate({top:"185px",speed: 800});
+});
+
+$(document).on( "click", ".up", function() {
+	$('.activity-tpl-list').stop().animate({top:"0px",speed: 800,});
+	setTimeout(function(){
+		$('.activity-tpl-list').hide();
+	},600)
+});
+
+$(document).on( "click", ".item", function() {
+	var url = $(this).attr('rel');
+	$('#url').val(url);
+	$("#activitybg").attr('src', url);
+	$('.activity-tpl-list').stop().animate({top:"0px",speed: 800});
+	setTimeout(function(){
+		$('.activity-tpl-list').hide();
+	},600);
+});
+
+//发布活动
+$(document).on( "click", "#releaseBtn", function() {
 	$.ajax({
 		type:'post',
-		url:"<%=baseUrl%>"+'/activity/releaseActivity',
+		url:baseUrl+'/activity/releaseActivity',
 		data:{
 			id:activityId,
-			url:$("#url").val(),
+			url:"/download/userImages/" + $("#url").val().split("/")[1],
 			title:$("#title").val(),
 			startTime:$("#time").val(),
 			address:$("#address").val(),
 			remark:$("#remark").val(),
-			createrId:'<%=userId%>'
+			createrId:userId,
+			type:$("#type").val()
 		},
 		dataType:'json',
 		success:function(data){
@@ -259,8 +229,7 @@ function realeaseActivity(){
 		error:function(textStatus,errorThrown){
 		}
 	});
-}
-
+});
 
 function openTalk(el){
 	var status = $(el).attr("status");
@@ -270,7 +239,7 @@ function openTalk(el){
 		$('.add-activity-btn').trigger("click");
 		$.ajax({
 			type:'post',
-			url:"<%=baseUrl%>"+'/activity/getActivityInfo',
+			url:baseUrl+'/activity/getActivityInfo',
 			data:{
 				id:groupId
 			},
@@ -278,11 +247,12 @@ function openTalk(el){
 			success:function(data){
 				setTimeout(function(){
 				activityId=groupId;
-				$("#activitybg").attr('src', '<%=serverUrl%>'+data.url);
+				$("#activitybg").attr('src', serverUrl+data.url);
 				$("#time").val(data.startTime);
 				$("#address").val(data.address);
 				$("#remark").val(data.remark);
 				$("#title").val(data.title);
+				$("#type").val(data.type);
 				},1000);
 			},
 			error:function(textStatus,errorThrown){
@@ -302,5 +272,3 @@ function formatTime(value)
 	return d.format("yyyy-MM-dd hh:mm");
 }
 </script>
-</body>
-</html>
