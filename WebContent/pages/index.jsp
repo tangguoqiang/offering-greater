@@ -140,15 +140,17 @@ $(document).ready(function(){
 		$('#nologin').hide();
 		$('#userinfo').show();
 		$('#showusername').html(userName);
-		if('<%=url%>' != "")
-			$("#icon").attr("src",serverUrl+ '<%=url%>');
+			
 		
 		if(USER_GREATER == userType){
 			$("#activity").show();
 			$("#greater").hide();
+			$("#icon").show();
+			$("#icon").attr("src",serverUrl+ '<%=url%>');
 		}else{
 			$("#activity").hide();
 			$("#greater").show();
+			$("#icon").hide();
 		}
 	}
 	

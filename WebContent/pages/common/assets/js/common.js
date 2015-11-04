@@ -166,6 +166,8 @@ function validateForm(formId){
 	$.each($("#" + formId + " input,"+ "#" + formId +" textarea"), function(i,el) {
 		if($(el).attr("required") == "required")
 		{
+			if($(el).parent().parent().css("display")!= "block")
+				return;
 			if($(el).val().trim() == ""){
 				$(el).parent().addClass("has-error");
 			}
