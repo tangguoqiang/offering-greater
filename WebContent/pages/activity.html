@@ -44,13 +44,6 @@
 					<input id="title" name="title" type="text" class="input" autocomplete="off" placeholder="分享主题"></input>
 				</p>
 				<p>
-					<select id="type">
-				  		<option value="0">求职分享会</option>
-				  		<option value="1">线下宣讲会</option>
-				  		<option value="2">线上宣讲会</option>
-					</select>
-				</p>
-				<p>
 					<input id="time" name="time" type="text" class="input" autocomplete="off" placeholder="时间"></input>
 				</p>
 				<p>
@@ -160,6 +153,7 @@ var activityId="";
 $('.add-activity-btn').on('click',function(){
 	var html = $('#dialog').html();
 	TINY.box.show(html,0,0,0,1);
+	isClick=true;
 	activityId="";
 	$("#title").val("");
 	$("#time").val("");
@@ -202,33 +196,37 @@ $(document).on( "click", ".item", function() {
 	},600);
 });
 
+var isClick=true;
 //发布活动
 $(document).on( "click", "#releaseBtn", function() {
-	$.ajax({
-		type:'post',
-		url:baseUrl+'/activity/releaseActivity',
-		data:{
-			id:activityId,
-			url:"/download/userImages/" + $("#url").val().split("/")[1],
-			title:$("#title").val(),
-			startTime:$("#time").val(),
-			address:$("#address").val(),
-			remark:$("#remark").val(),
-			createrId:userId,
-			type:$("#type").val()
-		},
-		dataType:'json',
-		success:function(data){
-			if(data.success){
-				loadActivities();
-				TINY.box.hide();
-			}else{
-				alert(data.msg);
+	if(isClick){
+		isClick=false;
+		$.ajax({
+			type:'post',
+			url:baseUrl+'/activity/releaseActivity',
+			data:{
+				id:activityId,
+				url:"/download/userImages/" + $("#url").val().split("/")[1],
+				title:$("#title").val(),
+				startTime:$("#time").val(),
+				address:$("#address").val(),
+				remark:$("#remark").val(),
+				createrId:userId,
+				type:'2'
+			},
+			dataType:'json',
+			success:function(data){
+				if(data.success){
+					TINY.box.hide();
+					loadActivities();
+				}else{
+					alert(data.msg);
+				}
+			},
+			error:function(textStatus,errorThrown){
 			}
-		},
-		error:function(textStatus,errorThrown){
-		}
-	});
+		});
+	}
 });
 
 function openTalk(el){

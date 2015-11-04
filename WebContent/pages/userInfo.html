@@ -137,10 +137,28 @@
 				       <textarea class="form-control" id="tags" placeholder="您的个性标签,多个之间以逗号隔开" rows="4"/>
 				     </div>
 				  </div>
+				  <div id="tagsDiv_des" class="form-group" style="display: none;">
+				     <div class="col-sm-offset-2 col-sm-10" style="text-align: left;">
+				       	<font color="#c5c5c5">描述你的个性化标签，让自己更有特点。</font>
+				       	<br>
+						<font color="#c5c5c5">比如 产品狗 ,运营达人 ,北邮系,星座控.......</font>
+				     </div>
+				  </div>
 				  <div id="introduceDiv" class="form-group" style="display: none;">
 				     <label for="introduce" class="col-sm-2 control-label">个人简介</label>
 				     <div class="col-sm-10">
 				       <textarea class="form-control" id="introduce" required="required" placeholder="您的个人简介(介绍自己,怎么风趣怎么来,幽默的人最有魅力)" rows="4"/>
+				     </div>
+				  </div>
+				  <div id="introduceDiv_des" class="form-group" style="display: none;width: 100%;">
+				     <div class="col-sm-offset-2 col-sm-10" style="text-align: left;">
+				     	<font color="#c5c5c5">个人经历：</font>
+				       	<br>
+						<font color="#c5c5c5">更充实地填写自己的经历，让学生有更多的了解。</font>
+						<br>
+						<font color="#c5c5c5">比如 :12年市场营销专业毕业于南邮，11年进入腾讯，在无线bu QQ浏览器组从事产品运营实习工作。</font>
+						<br>
+						<font color="#c5c5c5">熟悉.........</font>
 				     </div>
 				  </div>
 				  <div id="btnDiv" class="form-group">
@@ -289,7 +307,8 @@ $("#infoLi li").on("click",function(){
 			return;
 		if(liId == "baseInfoLi"){
 			$("#preview-pane").show();
-			if(divId == "onlineTime" || divId=="tagsDiv" || divId=="introduceDiv"){
+			if(divId == "onlineTime" || divId=="tagsDiv" || divId=="introduceDiv"
+				|| divId=="tagsDiv_des" || divId=="introduceDiv_des"){
 				$(el).hide();
 			}
 			else{
@@ -305,7 +324,7 @@ $("#infoLi li").on("click",function(){
 			}
 		}else if(liId == "tagsLi"){
 			$("#preview-pane").hide();
-			if(divId=="tagsDiv"){
+			if(divId=="tagsDiv" || divId=="tagsDiv_des"){
 				$(el).show();
 			}
 			else{
@@ -313,7 +332,7 @@ $("#infoLi li").on("click",function(){
 			}
 		}else if(liId == "introduceLi"){
 			$("#preview-pane").hide();
-			if(divId=="introduceDiv"){
+			if(divId=="introduceDiv" || divId=="introduceDiv_des"){
 				$(el).show();
 			}else{
 				$(el).hide();
@@ -463,7 +482,7 @@ $('#updateGreater').on('click',function(e){
 		data:postData,
 		dataType:'json',
 		success:function(data){
-			
+			showMoment("保存成功！");
 		},
 		error:function(textStatus,errorThrown){
 		}
@@ -495,6 +514,7 @@ $('#saveTopic').on('click',function(e){
 		data:postData,
 		dataType:'json',
 		success:function(data){
+			showMoment("保存成功！");
 			$("#topicId").val(data.id);
 			loadTopics();
 		},
@@ -512,6 +532,7 @@ $('#delTopic').on('click',function(e){
 		},
 		dataType:'json',
 		success:function(data){
+			showMoment("删除成功！");
 			$("#topicId").val("");
 			$("#title").val("");
 			$("#content").val("");

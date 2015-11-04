@@ -123,8 +123,8 @@ div{display: block;}
 .model2{position: absolute; left: -120px;top:-250px;width:333px; height:673px; text-align:center;background-image: url('../images/iphone.png');background-repeat: no-repeat;}
 .model2 .dialogcontent{width: 284px;height: 491px;margin: 90px auto 20px auto;background: #fff;position: relative;}
 .model2 .dialogcontent .dialogtitle{position: relative;z-index: 90;}
-.model2 p{ position: relative;margin: 0;line-height: 44px;height: 44px;font-size: 13px;}
-.model2 input{border-top:0px ;border-left:0px ;border-right:0px ;width:253px;height:25px;font-size: 13px;}
+.model2 p{  position: relative;margin: 0;line-height: 40px;height: 40px;font-size: 13px;}
+.model2 input{border-top:0px ;border-left:0px ;border-right:0px ;width:253px;height:40px;font-size: 13px;}
 .model2 select{border-top:0px ;border-left:0px ;border-right:0px;border-bottom:1px;width:100%;height:25px;font-size: 13px;text-align: right;}
 .model2 textarea{border:0px ;width:253px;height:100px;font-size: 13px;resize: none;}
 .model2 .dialogtitle .down{position: absolute;right:20px;bottom:20px;background-image: url('../images/down-icon.png');background-repeat: no-repeat; width: 10px;height: 6px; cursor: pointer;}
@@ -132,7 +132,7 @@ div{display: block;}
 .model2 .activity-tpl-list ul li {float:left;cursor: pointer;}
 .model2 .activity-tpl-list ul .first{ margin: 0 6px 1px 4px;}
 .model2 .activity-tpl-list .up{float:left;margin:3px auto;position: relative; left: -10px;background-image: url('../images/up-icon.png');background-repeat: no-repeat; width: 16px;height: 16px; cursor: pointer;}
-.model2 .send-activity{background-image: url('../images/circle.png');background-repeat: no-repeat; width: 52px;height: 52px;  margin-top: 108px;margin-left: 115px;padding-top: 16px;font-size: 14px;cursor: pointer;}
+.model2 .send-activity{background-image: url('../images/circle.png');background-repeat: no-repeat; width: 52px;height: 52px;  margin-top: 167px;margin-left: 115px;padding-top: 16px;font-size: 14px;cursor: pointer;}
 .model2 .close2{position: absolute;background-image: url('../images/delete.png');background-repeat: no-repeat;width: 29px;height: 29px;  right: -40px;top:15px;cursor: pointer;}
 .talkcontent { margin-top: 44px;position: relative;top: 44px;}
 .talkcontent .left{width: 285px;float: left;margin-right: 25px}
@@ -287,3 +287,9 @@ form select{
 .baseinfo .name{font-size: 16px; margin-bottom: 8px;}
 .baseinfo p{font-size: 13px;}
 .work {text-align: left;margin-top:20px;background: #fff;}
+
+
+a:FOCUS,a:HOVER{
+	border: none !important;
+	outline: none !important;
+}

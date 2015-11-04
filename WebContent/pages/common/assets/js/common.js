@@ -126,9 +126,9 @@ function isNum(s) {
  * @param text
  */
 function showMoment(text){
-	parent.$("#message").text(text);
-	parent.$("#messageModal").modal({backdrop:false});
-	setTimeout("parent.$('#messageModal').modal('hide')",1000);
+	$("#message").text(text);
+	$("#messageModal").modal({backdrop:false});
+	setTimeout("$('#messageModal').modal('hide')",1000);
 }
 
 /**
