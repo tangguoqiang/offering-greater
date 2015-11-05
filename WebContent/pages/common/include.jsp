@@ -17,6 +17,8 @@
 	}
 	
 %>
+<link rel="SHORTCUT ICON" href="images/favicon.ico" type="image/x-icon" />
+<link rel="BOOKMARK" href="images/favicon.ico" type="image/x-icon" />
 <link href="css/base.css" rel="stylesheet" type="text/css"/>
 <%-- <link href="<%=baseUrl%>/css/jquery-ui-1.8.17.custom.css" rel="stylesheet" type="text/css"/> --%>
 <link href="css/jquery-ui.min.css" rel="stylesheet" type="text/css"/>

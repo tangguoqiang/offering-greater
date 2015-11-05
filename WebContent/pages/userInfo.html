@@ -445,12 +445,14 @@ $('#updateGreater').on('blur',function(e){
 
 $('#updateGreater').on('click',function(e){
 	e.preventDefault(); 
-	var image = $("#icon_greater").attr("src");
-	if(image == '' || image == "images/upload_image.jpg"){
-		msg = "请选择上传头像";
-		$('#greater_warning').attr("data-content",msg);
-		$('#greater_warning').popover("show");
-		return false;
+	if($("#baseInfoLi").hasClass("active-mine")){
+		var image = $("#icon_greater").attr("src");
+		if(image == '' || image == "images/upload_image.jpg"){
+			msg = "请选择上传头像";
+			$('#greater_warning').attr("data-content",msg);
+			$('#greater_warning').popover("show");
+			return false;
+		}
 	}
 	
 	var res = validateForm("baseInfoForm");
@@ -462,7 +464,7 @@ $('#updateGreater').on('click',function(e){
 	
 	var postData = parseFormToJson("baseInfoForm");
 	postData.id = userId;
-	if($("#school").attr("data-id") == ""){
+	if($("#school").attr("data-id") == "" && $("#baseInfoLi").hasClass("active-mine")){
 		$('#greater_warning').attr("data-content","请选择正确的学校");
 		$('#greater_warning').popover("show");
 		return false;
