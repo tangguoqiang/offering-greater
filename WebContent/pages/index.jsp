@@ -179,7 +179,10 @@ $(document).ready(function(){
 			},
 			dataType:'json',
 			success:function(data){
-				$('.regerror').html('验证码获取成功，请在一分钟内完成注册!');
+				if(data.code == '2')
+					$('.regerror').html(data.msg);
+				else
+					$('.regerror').html('验证码获取成功，请在一分钟内完成注册!');
 			},
 			error:function(textStatus,errorThrown){
 				if(data.code != 0)
