@@ -13,7 +13,9 @@ import com.offering.bean.School;
 import com.offering.bean.Topic;
 import com.offering.bean.User;
 import com.offering.common.constant.GloabConstant;
+import com.offering.common.utils.CCPUtils;
 import com.offering.common.utils.Utils;
+import com.offering.common.utils.CCPUtils.SmsType;
 import com.offering.core.dao.BaseDao;
 import com.offering.core.dao.GreaterDao;
 import com.offering.core.dao.SchoolDao;
@@ -59,6 +61,15 @@ public class MainServiceImpl implements MainService{
 	}
 	
 	/**
+	 * 根据用户id获取用户信息
+	 * @param id
+	 * @return
+	 */
+	public User getUserInfoById(String id){
+		return userDao.getUserInfoById(id);
+	}
+	
+	/**
 	 * 修改密码
 	 * @param username
 	 * @param password
@@ -87,8 +98,16 @@ public class MainServiceImpl implements MainService{
 		user.setSchoolId(greater.getSchoolId());
 		userDao.updateUser(user);
 		
+		if(!Utils.isEmpty(greater.getTags())){
+			greater.setTags(greater.getTags().replaceAll("[，,]", ","));
+		}
 		greater.setIsshow(GloabConstant.YESNO_NO);
 		greaterDao.insertRecord(greater, "USER_GREATER");
+		
+		//发送短信通知
+		User u = userDao.getUserInfoById(greater.getId());
+		CCPUtils.sendSMS(u.getPhone(), SmsType.GREATER, 
+						null);
 	}
 	
 	/**
@@ -105,6 +124,9 @@ public class MainServiceImpl implements MainService{
 		user.setSchoolId(greater.getSchoolId());
 		userDao.updateUser(user);
 		
+		if(!Utils.isEmpty(greater.getTags())){
+			greater.setTags(greater.getTags().replaceAll("[，,]", ","));
+		}
 		greaterDao.updateGreater(greater);
 	}
 	

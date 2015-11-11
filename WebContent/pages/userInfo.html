@@ -453,6 +453,13 @@ $('#updateGreater').on('click',function(e){
 			$('#greater_warning').popover("show");
 			return false;
 		}
+		if(image.indexOf("offering") == -1){
+			postData.image = image;
+			postData.w = $("#w").val();
+			postData.h = $("#h").val();
+			postData.x = $("#x").val();
+			postData.y = $("#y").val();
+		}
 	}
 	
 	var res = validateForm("baseInfoForm");
@@ -470,13 +477,6 @@ $('#updateGreater').on('click',function(e){
 		return false;
 	}
 	postData.schoolId=$("#school").attr("data-id");
-	if(image.indexOf("offering") == -1){
-		postData.image = image;
-		postData.w = $("#w").val();
-		postData.h = $("#h").val();
-		postData.x = $("#x").val();
-		postData.y = $("#y").val();
-	}
 	
 	$.ajax({
 		type:'post',

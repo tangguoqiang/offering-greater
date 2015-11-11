@@ -11,7 +11,12 @@ public class GloabConstant {
 	/**
 	 * 产品状态 0：测试 1:生产
 	 */
-	public final static String PRODUCT_MODEL = "0";
+	public final static String PRODUCT_MODEL = "1";
+	
+	/**
+	 * 验证码有效时间 15分钟
+	 */
+	public final static String EFFECT_TIME = "15";
 	
 	/**
 	 *  是否 0：是  1：否

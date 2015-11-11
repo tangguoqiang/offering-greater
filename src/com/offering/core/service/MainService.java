@@ -23,6 +23,13 @@ public interface MainService {
 	public User getUserInfo(String username,String password);
 	
 	/**
+	 * 根据用户id获取用户信息
+	 * @param id
+	 * @return
+	 */
+	public User getUserInfoById(String id);
+	
+	/**
 	 * 修改密码
 	 * @param username
 	 * @param password

@@ -25,6 +25,7 @@ import com.offering.bean.Topic;
 import com.offering.bean.User;
 import com.offering.common.constant.GloabConstant;
 import com.offering.common.utils.CCPUtils;
+import com.offering.common.utils.CCPUtils.SmsType;
 import com.offering.common.utils.ImageUtil;
 import com.offering.common.utils.MD5Util;
 import com.offering.common.utils.RCUtils;
@@ -250,9 +251,9 @@ public class MainController {
 			}
 		}
 		String idCode = Utils.createIdCode();
-		String msg = CCPUtils.sendSMS(phone, idCode);
+		String msg = CCPUtils.sendSMS(phone, SmsType.IDCODE, 
+				new String[]{idCode,GloabConstant.EFFECT_TIME});
 		if (Utils.isEmpty(msg)) {
-			// TODO 验证码时效性实现 memcache或redis
 			idCodeMap.put(phone, idCode);
 			timeMap.put(phone, System.currentTimeMillis());
 			return Utils.success(null);
